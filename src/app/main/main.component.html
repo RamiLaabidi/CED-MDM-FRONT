@@ -1,0 +1,4 @@
+<div class="container">
+  <app-general-information [journalInfo]="journalData"></app-general-information>
+  <app-form-jrlinfo (journalCreated)="updateJournalData($event)"></app-form-jrlinfo>
+</div>

@@ -1,0 +1,12 @@
+<h3>Informations personnelles</h3>
+<form [formGroup]="personalForm">
+  <label>name :</label>
+  <input kendoTextBox formControlName="name" />
+
+  <label>category :</label>
+  <input kendoTextBox formControlName="category" />
+
+
+
+  <button kendoButton (click)="nextStep()" [disabled]="!personalForm.valid">Suivant</button>
+</form>

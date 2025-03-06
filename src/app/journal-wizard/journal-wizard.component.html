@@ -1,0 +1,13 @@
+<kendo-stepper [steps]="[
+  { label: 'Journal Information\' ' },
+  { label: 'Journal Settings' }
+]" [currentStep]="stepIndex">
+</kendo-stepper>
+
+<div *ngIf="stepIndex === 1">
+  <app-form-jrlinfo (next)="nextStep($event)"></app-form-jrlinfo>
+</div>
+
+<div *ngIf="stepIndex === 2">
+  <app-journal-settings [journalData]="journalData" (previous)="previousStep()"></app-journal-settings>
+</div>

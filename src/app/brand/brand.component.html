@@ -1,0 +1,17 @@
+
+<kendo-grid
+  [data]="brands"
+
+  style="height: 200px;"
+>
+  <kendo-grid-column field="id" title="ID" ></kendo-grid-column>
+  <kendo-grid-column field="name" title="Nom" ></kendo-grid-column>
+  <kendo-grid-column field="category" title="Catégorie" ></kendo-grid-column>
+  <kendo-grid-column field="isActive" title="Active ?" >
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span [ngClass]="{'text-success': dataItem.isActive, 'text-danger': !dataItem.isActive}">
+        {{ dataItem.isActive ? ' Oui' : ' Non' }}
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+</kendo-grid>

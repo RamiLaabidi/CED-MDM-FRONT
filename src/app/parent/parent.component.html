@@ -1,0 +1,18 @@
+<kendo-stepper [steps]="[
+  { label: 'Informations personnelles' },
+  { label: 'Adresse' },
+  { label: 'Paiement' }
+]" [currentStep]="stepIndex">
+</kendo-stepper>
+
+<div *ngIf="stepIndex === 0">
+  <app-one-step (next)="nextStep($event)"></app-one-step>
+</div>
+
+<div *ngIf="stepIndex === 1">
+  <app-two-step (previous)="previousStep()" (next)="nextStep($event)"></app-two-step>
+</div>
+
+<div *ngIf="stepIndex === 2">
+  <app-third-step (previous)="previousStep()" (submit)="submitForm($event)"></app-third-step>
+</div>
