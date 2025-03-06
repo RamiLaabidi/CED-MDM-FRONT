@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { LegalEntityTypeService } from '../services/legal-entity-type.service';
 import { JournalTypeService } from '../services/journal-type.service';
 import { LegalEntityService } from '../services/legal-entity.service';
-import {GeneralInformationComponent} from '../general-information/general-information.component';
 
 @Component({
   selector: 'app-form-jrlinfo',
@@ -23,7 +22,6 @@ import {GeneralInformationComponent} from '../general-information/general-inform
     SwitchComponent,
     TextAreaComponent,
     DropDownListComponent,
-    //GeneralInformationComponent
   ],
   templateUrl: './form-jrlinfo.component.html',
   styleUrl: './form-jrlinfo.component.css'
