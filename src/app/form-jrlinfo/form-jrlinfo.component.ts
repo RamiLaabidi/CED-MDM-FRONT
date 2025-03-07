@@ -43,6 +43,7 @@ export class FormJRLInfoComponent implements OnInit {
   errorMessage = '';
   legalEntities: any[] = []; // Stocker les entités légales
   journalTypes: any[] = [];
+  //isSaved = false; // Indique si le journal a été sauvegardé avec succès
 
   constructor(
     private fb: FormBuilder,
@@ -132,9 +133,12 @@ export class FormJRLInfoComponent implements OnInit {
       this.journalService.createJournal(journalData).subscribe({
         next: () => {
           alert('Journal créé avec succès !');
-          this.journalCreated.emit(journalData); // Émet les données mises à jour
-          this.journalForm.reset();
+          this.journalCreated.emit(journalData);
+          //this.journalForm.reset();
           this.isSubmitting = false;
+         // this.isSaved = true;  // ✅ Activation du bouton Next
+          this.journalForm.disable(); // Désactiver tous les champs après sauvegarde
+
         },
         error: (error: HttpErrorResponse) => {
           this.errorMessage = error.error?.title || 'Une erreur est survenue.';

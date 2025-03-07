@@ -1,7 +1,7 @@
 .general-info {
-  background: #fff;
+  background-color: #fff;
   padding: 25px;
-  border-radius: 3px;
+  border-radius: 6px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Ombre douce pour l'élément */
   margin-bottom: 20px;
   border-left: 9px solid #552490; /* Bordure gauche colorée */
@@ -15,7 +15,7 @@
 
 h3 {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #552490; /* Utilisation du violet pour le titre */
   margin-bottom: 15px;
 }
@@ -35,7 +35,7 @@ h3 {
 
 .info-label {
   font-weight: 600;
-  color: #3a98da; /* Bleu pour les labels */
+  color: rgba(51, 51, 51, 0.68); /* Bleu pour les labels */
   font-size: 1.05rem;
 }
 

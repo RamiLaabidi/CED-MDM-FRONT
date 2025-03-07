@@ -2,15 +2,60 @@
   max-width: 1200px;
   margin: auto;
   padding: 30px;
-  background: #f9f9f9; /* Fond clair */
-  border-radius: 3px;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1); /* Ombre subtile */
-  transition: all 0.3s ease;
+  background: #ffffff; /* Fond clair */
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Ombre douce pour l'élément */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .k-form:hover {
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 15px 30px rgb(255, 255, 255);
 }
+/* Style du dropdown (kendo-dropdownlist) */
+kendo-dropdownlist {
+  border: 1px solid #ddd;
+  padding: 10px 12px; /* Réduction du padding pour une meilleure taille */
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%; /* Pour s'adapter à son conteneur */
+  max-width: 300px; /* Réduire la largeur à 300px pour ne pas trop s'étendre */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  height: 40px; /* Réduit la hauteur du dropdown */
+
+}
+
+/* Effet au focus */
+kendo-dropdownlist:focus {
+  border-color: #3a98da; /* Légère teinte bleue au focus */
+  box-shadow: 0 0 5px rgba(58, 152, 218, 0.6); /* Lueur bleue autour du champ */
+}
+
+/* Style au survol (optionnel) */
+kendo-dropdownlist:hover {
+  border-color: #86bc33; /* Teinte verte sur survol */
+}
+
+/* Modernisation du dropdown */
+.k-dropdown {
+  transition: all 0.3s ease; /* Effet fluide lors de l'interaction */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre pour une apparence moderne */
+}
+
+/* Style des options dans le dropdown */
+.k-dropdown ul {
+  border-radius: 6px;
+  background-color: #fff; /* Fond blanc pour les options */
+  color: #333; /* Couleur de texte sombre pour les options */
+  padding: 8px;
+}
+
+/* Hover des options */
+.k-dropdown li:hover {
+  background-color: #86bc33; /* Fond vert au survol */
+  color: #fff; /* Texte blanc au survol */
+}
+
 
 .form-container {
   display: grid;
@@ -37,44 +82,53 @@ label {
   grid-column: span 4;
 }
 
-input, textarea, kendo-dropdownlist, kendo-switch {
+input, textarea {
   border: 1px solid #ddd;
   padding: 12px 15px;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
 }
 
-input:focus, textarea:focus, kendo-dropdownlist:focus, kendo-switch:focus {
+input:focus, textarea:focus,  kendo-switch:focus {
   border-color: #3a98da; /* Bleu #3a98da au focus */
   box-shadow: 0 0 5px rgba(58, 152, 218, 0.6); /* Lueur bleue */
 }
 
 textarea {
   resize: vertical;
+
 }
 
 button[kendoButton] {
   background-color: #86bc33; /* Vert #86bc33 */
   color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 8px 50px;
+  border-radius: 1px;
   font-size: 1rem;
   font-weight: 600;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-left: 438px; /* Décalage à droite de 10px */
+
+
 }
 
 button[kendoButton]:hover {
-  background-color: #7da72a; /* Teinte plus foncée du vert */
+  background-color: #3a98da; /* Teinte plus foncée du vert */
   transform: translateY(-2px);
+
 }
 
 button[kendoButton]:disabled {
   background-color: #bdc3c7;
   cursor: not-allowed;
+  margin-left: 438px; /* Décalage à droite de 10px */
+
+
 }
 
 .submit-container {
@@ -97,3 +151,4 @@ button[kendoButton]:disabled {
     grid-template-columns: 1fr; /* Une seule colonne sur les petits écrans */
   }
 }
+

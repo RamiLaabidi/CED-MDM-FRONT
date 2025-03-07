@@ -12,15 +12,6 @@
       <label>Journal Description</label>
       <kendo-textarea formControlName="JRL_Description" [maxlength]="30" placeholder="Enter description"></kendo-textarea>
     </div>
-
-    <!-- Currency Code -->
-    <div class="form-group">
-      <label>Currency Code </label>
-      <kendo-textbox formControlName="currencyCode" placeholder="Currency Code" [readonly]="true"></kendo-textbox>
-    </div>
-
-
-
     <!-- Journal Type -->
     <div class="form-group">
       <label class="label-required">Journal Type *</label>
@@ -32,6 +23,29 @@
         formControlName="JRL_JournalType_Id">
       </kendo-dropdownlist>
     </div>
+    <!-- Legal Entity -->
+    <div class="form-group">
+      <label class="label-required">Legal Entity *</label>
+      <kendo-dropdownlist
+        [data]="legalEntities"
+        [textField]="'nomComplet'"
+        [valueField]="'lE_Id'"
+        [valuePrimitive]="true"
+        formControlName="JRL_LegalEntity_Id"
+        placeholder="Enter IBAN">
+      </kendo-dropdownlist>
+
+    </div>
+
+    <!-- Currency Code -->
+    <div class="form-group">
+      <label>Currency Code </label>
+      <kendo-textbox formControlName="currencyCode" placeholder="Currency Code" [readonly]="true"></kendo-textbox>
+    </div>
+
+
+
+
 
     <!-- General Ledger -->
     <div class="form-group">
@@ -57,17 +71,7 @@
       <kendo-textbox formControlName="JRL_ExactJournal" placeholder="Exact Journal"></kendo-textbox>
     </div>
 
-    <!-- Legal Entity -->
-    <div class="form-group">
-      <label class="label-required">Legal Entity *</label>
-      <kendo-dropdownlist
-        [data]="legalEntities"
-        [textField]="'nomComplet'"
-        [valueField]="'lE_Id'"
-        [valuePrimitive]="true"
-        formControlName="JRL_LegalEntity_Id">
-      </kendo-dropdownlist>
-    </div>
+
 
     <!-- Inactive Switch -->
     <div class="form-group">
@@ -91,8 +95,10 @@
     </button>
 
     <!-- Bouton Next, toujours actif -->
-    <button kendoButton type="button" (click)="nextStep()" [primary]="true" class="ml-2">
+    <!-- Bouton Next, activé seulement après la sauvegarde réussie -->
+    <button kendoButton type="button" (click)="nextStep()" [primary]="true" class="ml-2" >
       Next
     </button>
+
   </div>
 </form>

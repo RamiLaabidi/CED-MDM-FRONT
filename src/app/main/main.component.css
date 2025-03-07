@@ -3,9 +3,29 @@
   margin: auto;
   padding: 20px;
 
+
 }
 body {
   background-color: #0080ff; /* Choisis une couleur douce */
   margin: 0;
   font-family: Arial, sans-serif;
+}
+.stepper-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.k-step {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.k-step .k-step-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.k-step-current .k-step-label {
+  color: #0080ff; /* Couleur rouge du design */
 }
