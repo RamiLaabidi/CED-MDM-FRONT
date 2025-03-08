@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { StepperComponent } from '@progress/kendo-angular-layout';
 import { GeneralInformationComponent } from '../general-information/general-information.component';
 import { FormJRLInfoComponent } from '../form-jrlinfo/form-jrlinfo.component';
 import { JournalSettingsComponent } from '../journal-settings/journal-settings.component';
@@ -10,7 +9,6 @@ import { JournalSettingsComponent } from '../journal-settings/journal-settings.c
   selector: 'app-main',
   standalone: true,
   imports: [
-    StepperComponent,
     GeneralInformationComponent,
     FormJRLInfoComponent,
     JournalSettingsComponent,
@@ -28,7 +26,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.journalForm = this.fb.group({
-      journalName: [''],
+      journalAbbreviation: [''],
       activeDate: [''],
       inactiveDate: [''],
       jrlId: ['']
@@ -52,7 +50,7 @@ export class MainComponent implements OnInit {
     const formattedDate = this.formatDate(today);
 
     this.journalForm.patchValue({
-      journalName: journal.JRL_ExactJournal || '',
+      journalAbbreviation: journal.JRL_Abbreviation || '',
       jrlId: journal.JRL_Id,
       activeDate: formattedDate,
       inactiveDate: formattedDate

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TextBoxComponent} from '@progress/kendo-angular-inputs';
+import {TextAreaComponent, TextBoxComponent} from '@progress/kendo-angular-inputs';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DatePickerComponent} from '@progress/kendo-angular-dateinputs';
 import {DropDownListComponent} from '@progress/kendo-angular-dropdowns';
@@ -15,7 +15,7 @@ import {CommonModule} from '@angular/common';
     DatePickerComponent,
     TextBoxComponent,
     ButtonComponent,
-    CommonModule
+    CommonModule,
 
   ],
   templateUrl: './journal-settings.component.html',

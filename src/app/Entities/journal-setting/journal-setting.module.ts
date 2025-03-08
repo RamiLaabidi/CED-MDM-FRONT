@@ -1,6 +1,6 @@
 export interface JournalSetting {
   jlsId?: string; // Guid
-  jlsLegalEntityId?: string; // Guid
+  legalEntityId?: string; // Guid
   jlsJournalSettingTypeId?: string;
   jlsJournalId?: string;
   jlsGeneralLedgerId?: string;
@@ -9,7 +9,7 @@ export interface JournalSetting {
   jlsCreatedDate: Date;
   jlsLastModifiedDate: Date;
   jlsZeroRateForeignTaxCode?: string;
-
+  entrySystem?:string;
 
 }
 
