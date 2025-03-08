@@ -112,7 +112,10 @@ button[kendoButton] {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-left: 438px; /* Décalage à droite de 10px */
+  //margin-left: 438px; /* Décalage à droite de 10px */
+  flex: 1; /* Make the buttons take up equal space */
+  max-width: 150px; /* Optional: Limit the width to avoid them becoming too large */
+  margin: 0 10px; /* Optional: Add some space between buttons */
 
 
 }
@@ -133,8 +136,10 @@ button[kendoButton]:disabled {
 
 .submit-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
+
 }
 
 .error-message {

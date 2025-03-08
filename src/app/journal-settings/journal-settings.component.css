@@ -31,8 +31,6 @@ label {
   color: #333;
 }
 
-
-
 .full-width {
   grid-column: span 4;
 }
@@ -65,7 +63,7 @@ button[kendoButton] {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-left: 400px; /* Décalage à droite de 10px */
+  margin: 0 10px; /* Space between buttons */
 }
 
 button[kendoButton]:hover {
@@ -76,13 +74,13 @@ button[kendoButton]:hover {
 button[kendoButton]:disabled {
   background-color: #bdc3c7;
   cursor: not-allowed;
-  margin-left: 438px; /* Décalage à droite de 10px */
 }
 
 .submit-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Equally space out the buttons */
   margin-top: 30px;
+  width: 100%; /* Ensure the container takes up full width */
 }
 
 .error-message {
@@ -99,6 +97,7 @@ button[kendoButton]:disabled {
     grid-template-columns: 1fr; /* Une seule colonne sur les petits écrans */
   }
 }
+
 /* Style du dropdown (kendo-dropdownlist) */
 kendo-dropdownlist {
   border: 1px solid #ddd;
@@ -110,7 +109,6 @@ kendo-dropdownlist {
   max-width: 300px; /* Réduire la largeur à 300px pour ne pas trop s'étendre */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   height: 40px; /* Réduit la hauteur du dropdown */
-
 }
 
 /* Effet au focus */

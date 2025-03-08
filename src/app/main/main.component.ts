@@ -51,7 +51,7 @@ export class MainComponent implements OnInit {
 
     this.journalForm.patchValue({
       journalAbbreviation: journal.JRL_Abbreviation || '',
-      jrlId: journal.JRL_Id,
+      jrlId: journal.JRL_Id, // Vérifie que cette ligne est bien exécutée
       activeDate: formattedDate,
       inactiveDate: formattedDate
     });

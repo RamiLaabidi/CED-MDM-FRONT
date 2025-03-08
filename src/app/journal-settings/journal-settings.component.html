@@ -1,22 +1,27 @@
 <form [formGroup]="journalSettingForm" (ngSubmit)="submitForm()" class="k-form">
   <div class="form-container">
-
     <!-- Zero Rate Foreign Tax Code -->
     <div class="form-group">
       <label>Zero Rate Foreign Tax Code</label>
-      <kendo-textbox formControlName="jlsZeroRateForeignTaxCode" placeholder="Enter Tax Code"></kendo-textbox>
+      <kendo-textbox formControlName="JLS_ZeroRateForeignTaxCode" placeholder="Enter Tax Code"></kendo-textbox>
     </div>
+    <!-- Zero Rate Foreign Tax Code -->
+    <div class="form-group">
+      <label>legalEntityId</label>
+      <kendo-textbox formControlName="JLS_LegalEntity_Id" placeholder="legalEntityId"></kendo-textbox>
+    </div>
+    <!-- Zero Rate Foreign Tax Code -->
 
     <!-- Effective Date -->
     <div class="form-group">
       <label>Effective Date</label>
-      <kendo-datepicker formControlName="jlsEffectiveDate"></kendo-datepicker>
+      <kendo-datepicker formControlName="JLS_EffectiveDate"></kendo-datepicker>
     </div>
 
     <!-- Termination Date -->
     <div class="form-group">
       <label>Termination Date</label>
-      <kendo-datepicker formControlName="jlsTerminationDate"></kendo-datepicker>
+      <kendo-datepicker formControlName="JLS_TerminationDate"></kendo-datepicker>
     </div>
 
     <!-- Journal Setting Type -->
@@ -27,21 +32,23 @@
         [textField]="'description'"
         [valueField]="'id'"
         [valuePrimitive]="true"
-        formControlName="jlsJournalSettingTypeId">
+        formControlName="JLS_JournalSettingType_Id">
       </kendo-dropdownlist>
     </div>
-
   </div>
 
-  <!-- Message d'erreur -->
+  <!-- Error Message -->
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
 
-  <!-- Boutons de navigation -->
+  <!-- Navigation Buttons -->
   <div class="submit-container">
     <button kendoButton type="button" (click)="previousStep()" [primary]="false">
       Previous
+    </button>
+    <button kendoButton type="submit" [disabled]="!journalSettingForm.valid" [primary]="true">
+      Save
     </button>
     <button kendoButton type="submit" [disabled]="!journalSettingForm.valid" [primary]="true">
       Next

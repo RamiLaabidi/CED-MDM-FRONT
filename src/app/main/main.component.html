@@ -8,6 +8,9 @@
   </div>
 
   <div *ngIf="stepIndex === 2">
-    <app-journal-settings [journalData]="journalForm.value" (previous)="previousStep()"></app-journal-settings>
-  </div>
+    <app-journal-settings
+      [journalData]="journalForm.value"
+      [jrlId]="journalForm.get('jrlId')?.value"
+      (previous)="previousStep()">
+    </app-journal-settings>  </div>
 </div>
