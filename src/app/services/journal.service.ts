@@ -14,4 +14,7 @@ export class JournalService {
   createJournal(journal: Journal): Observable<Journal> {
     return this.http.post<Journal>(this.apiUrl, journal);
   }
+
+
+
 }

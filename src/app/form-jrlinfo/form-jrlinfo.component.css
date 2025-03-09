@@ -150,6 +150,10 @@ button[kendoButton]:disabled {
   border-radius: 6px;
   font-size: 0.9rem;
 }
+.label-required::after {
+  content: " *";
+  color: red;
+}
 
 @media screen and (max-width: 768px) {
   .form-container {

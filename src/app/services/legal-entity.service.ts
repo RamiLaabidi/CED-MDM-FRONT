@@ -17,4 +17,10 @@ export class LegalEntityService {
 
     return this.http.get<{ currencyCode: string }>(`${this.apiUrl}/currency`, { params });
   }
+
+
+
+  getExactAdministrationById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}/ExactAdministration`);
+  }
 }

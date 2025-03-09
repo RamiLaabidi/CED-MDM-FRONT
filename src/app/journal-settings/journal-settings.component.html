@@ -1,21 +1,23 @@
 <form [formGroup]="journalSettingForm" (ngSubmit)="submitForm()" class="k-form">
   <div class="form-container">
+
+    <!-- Entry System -->
+    <div class="form-group">
+      <label>Entry System</label>
+      <kendo-textbox formControlName="JLS_EntrySystem" placeholder="Enter Entry System Code"></kendo-textbox>
+    </div>
+
     <!-- Zero Rate Foreign Tax Code -->
     <div class="form-group">
       <label>Zero Rate Foreign Tax Code</label>
       <kendo-textbox formControlName="JLS_ZeroRateForeignTaxCode" placeholder="Enter Tax Code"></kendo-textbox>
     </div>
-    <!-- Zero Rate Foreign Tax Code -->
-    <div class="form-group">
-      <label>legalEntityId</label>
-      <kendo-textbox formControlName="JLS_LegalEntity_Id" placeholder="legalEntityId"></kendo-textbox>
-    </div>
-    <!-- Zero Rate Foreign Tax Code -->
+
 
     <!-- Effective Date -->
     <div class="form-group">
       <label>Effective Date</label>
-      <kendo-datepicker formControlName="JLS_EffectiveDate"></kendo-datepicker>
+      <kendo-datepicker formControlName="JLS_EffectiveDate" [readonly]="true"></kendo-datepicker>
     </div>
 
     <!-- Termination Date -->
@@ -50,7 +52,7 @@
     <button kendoButton type="submit" [disabled]="!journalSettingForm.valid" [primary]="true">
       Save
     </button>
-    <button kendoButton type="submit" [disabled]="!journalSettingForm.valid" [primary]="true">
+    <button kendoButton type="button" (click)="previousStep()" [primary]="false">
       Next
     </button>
   </div>

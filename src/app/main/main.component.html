@@ -11,6 +11,8 @@
     <app-journal-settings
       [journalData]="journalForm.value"
       [jrlId]="journalForm.get('jrlId')?.value"
-      (previous)="previousStep()">
-    </app-journal-settings>  </div>
+      [legalEntityId]="journalForm.value.JRL_LegalEntity_Id"
+    (previous)="previousStep()">
+    </app-journal-settings>
+  </div>
 </div>

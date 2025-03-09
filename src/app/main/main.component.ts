@@ -29,7 +29,9 @@ export class MainComponent implements OnInit {
       journalAbbreviation: [''],
       activeDate: [''],
       inactiveDate: [''],
-      jrlId: ['']
+      jrlId: [''],
+      JRL_LegalEntity_Id: [''], // 🔹 Assure-toi que ce champ est bien défini
+
     });
   }
 

@@ -3,7 +3,7 @@
 
     <!-- JRL Abbreviation -->
     <div class="form-group">
-      <label class="label-required">Journal Abbreviation *</label>
+      <label class="label-required">Journal Abbreviation</label>
       <kendo-textbox formControlName="JRL_Abbreviation" placeholder="Enter abbreviation"></kendo-textbox>
     </div>
 
@@ -14,60 +14,59 @@
     </div>
     <!-- Journal Type -->
     <div class="form-group">
-      <label class="label-required">Journal Type *</label>
+      <label class="label-required">Journal Type</label>
       <kendo-dropdownlist
         [data]="journalTypes"
         [textField]="'jrT_Id'"
         [valueField]="'jrT_Id'"
         [valuePrimitive]="true"
-        formControlName="JRL_JournalType_Id">
+        formControlName="JRL_JournalType_Id"
+        [defaultItem]="defaultJournalType">
+        >
       </kendo-dropdownlist>
     </div>
     <!-- Legal Entity -->
     <div class="form-group">
-      <label class="label-required">Legal Entity *</label>
+      <label class="label-required">Legal Entity</label>
       <kendo-dropdownlist
         [data]="legalEntities"
         [textField]="'nomComplet'"
         [valueField]="'lE_Id'"
         [valuePrimitive]="true"
         formControlName="JRL_LegalEntity_Id"
-        placeholder="Enter IBAN">
+        [defaultItem]="defaultLegalEntity">
       </kendo-dropdownlist>
 
     </div>
 
     <!-- Currency Code -->
     <div class="form-group">
-      <label>Currency Code </label>
+      <label>Currency Code</label>
       <kendo-textbox formControlName="currencyCode" placeholder="Currency Code" [readonly]="true"></kendo-textbox>
     </div>
 
 
-
-
-
     <!-- General Ledger -->
     <div class="form-group">
-      <label>General Ledger Journal *</label>
-      <kendo-textbox formControlName="JRL_GeneralLedger_Id" placeholder="General Ledger ID"></kendo-textbox>
+      <label class="label-required"> General Ledger</label>
+      <kendo-textbox formControlName="JRL_GeneralLedger_Id" placeholder="Enter General Ledger ID"></kendo-textbox>
     </div>
 
     <!-- IBAN -->
     <div class="form-group">
-      <label class="label-green">Iban *</label>
+      <label class="label-green">Iban</label>
       <kendo-textbox formControlName="JRL_BankAccount_Id" placeholder="Enter IBAN"></kendo-textbox>
     </div>
 
     <!-- Exact Administration -->
     <div class="form-group">
-      <label class="label-required">Exact Administration *</label>
+      <label class="label-required">Exact Administration</label>
       <kendo-textbox formControlName="JRL_ExactAdministration" placeholder="Exact Administration"></kendo-textbox>
     </div>
 
     <!-- Exact Journal -->
     <div class="form-group">
-      <label class="label-required">Exact Journal *</label>
+      <label class="label-required">Exact Journal</label>
       <kendo-textbox formControlName="JRL_ExactJournal" placeholder="Exact Journal"></kendo-textbox>
     </div>
 
@@ -75,7 +74,7 @@
 
     <!-- Inactive Switch -->
     <div class="form-group">
-      <label>Inactive</label>
+      <label>Journal Status</label>
       <kendo-switch formControlName="JRL_Inactive"></kendo-switch>
     </div>
 
