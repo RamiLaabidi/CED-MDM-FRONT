@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OneStepComponent } from './one-step.component';
+import { NextNumberComponent } from './next-number.component';
 
-describe('OneStepComponent', () => {
-  let component: OneStepComponent;
-  let fixture: ComponentFixture<OneStepComponent>;
+describe('NextNumberComponent', () => {
+  let component: NextNumberComponent;
+  let fixture: ComponentFixture<NextNumberComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OneStepComponent]
+      imports: [NextNumberComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OneStepComponent);
+    fixture = TestBed.createComponent(NextNumberComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

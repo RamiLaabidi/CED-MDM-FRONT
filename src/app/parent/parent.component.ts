@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {StepperComponent} from '@progress/kendo-angular-layout';
-import {OneStepComponent} from '../one-step/one-step.component';
 import {TwoStepComponent} from '../two-step/two-step.component';
 import {ThirdStepComponent} from '../third-step/third-step.component';
 import {CommonModule} from '@angular/common';
@@ -11,7 +10,6 @@ import {CommonModule} from '@angular/common';
   standalone: true,
   imports: [
     StepperComponent,
-    OneStepComponent,
     TwoStepComponent,
     ThirdStepComponent,
    [CommonModule] // ✅ Import pour *ngIf

@@ -10,12 +10,12 @@ export class LegalEntityService {
 
   constructor(private http: HttpClient) {}
 
-  getCurrencyCode(shortName: string, longName: string): Observable<{ currencyCode: string }> {
+  getCurrencyCode(shortName: string, longName: string): Observable< any > {
     const params = new HttpParams()
       .set('shortName', shortName)
       .set('longName', longName);
 
-    return this.http.get<{ currencyCode: string }>(`${this.apiUrl}/currency`, { params });
+    return this.http.get< any>(`${this.apiUrl}/currency`, { params });
   }
 
 

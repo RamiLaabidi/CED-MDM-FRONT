@@ -127,9 +127,8 @@ button[kendoButton]:hover {
 }
 
 button[kendoButton]:disabled {
-  background-color: #bdc3c7;
+  background-color: #7dc179;
   cursor: not-allowed;
-  margin-left: 438px; /* Décalage à droite de 10px */
 
 
 }

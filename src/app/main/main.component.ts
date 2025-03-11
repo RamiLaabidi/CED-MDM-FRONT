@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { GeneralInformationComponent } from '../general-information/general-information.component';
 import { FormJRLInfoComponent } from '../form-jrlinfo/form-jrlinfo.component';
 import { JournalSettingsComponent } from '../journal-settings/journal-settings.component';
+import {NextNumberComponent} from '../next-number/next-number.component';
 
 @Component({
   selector: 'app-main',
@@ -12,7 +13,8 @@ import { JournalSettingsComponent } from '../journal-settings/journal-settings.c
     GeneralInformationComponent,
     FormJRLInfoComponent,
     JournalSettingsComponent,
-    CommonModule
+    CommonModule,
+    NextNumberComponent
   ],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
@@ -21,6 +23,7 @@ export class MainComponent implements OnInit {
   stepIndex = 1; // Indicateur de l'étape active
   journalForm!: FormGroup;
   settingsData!: FormGroup;
+  nextNumberData!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
 
@@ -30,21 +33,29 @@ export class MainComponent implements OnInit {
       activeDate: [''],
       inactiveDate: [''],
       jrlId: [''],
-      JRL_LegalEntity_Id: [''], // 🔹 Assure-toi que ce champ est bien défini
+      JRL_LegalEntity_Id: [''],
 
     });
   }
 
   // Fonction pour passer à l'étape suivante (Journal Settings)
   nextStep(form: FormGroup) {
-    this.journalForm.patchValue(form.value);
-    this.stepIndex = 2; // Passe à l'étape 2
+    if (this.stepIndex === 1) {
+      this.journalForm.patchValue(form.value);
+      this.stepIndex = 2;
+    } else if (this.stepIndex === 2) {
+      this.settingsData = form;
+      this.stepIndex = 3; // Ajout de l'étape 3
+    }
   }
 
   // Fonction pour revenir à l'étape précédente (General Information)
   previousStep() {
-    this.stepIndex = 1; // Revient à l'étape 1
+    if (this.stepIndex > 1) {
+      this.stepIndex--;
+    }
   }
+
 
   // Fonction pour mettre à jour les données du journal
   updateJournalData(journal: any) {
@@ -67,6 +78,15 @@ export class MainComponent implements OnInit {
       ...this.settingsData.value
     });
     alert('Journal et paramètres enregistrés avec succès ! 🎉');
+  }
+  submitNextNumber(form: FormGroup) {
+    this.nextNumberData = form;
+    console.log("Journal + Settings + NextNumber enregistrés :", {
+      ...this.journalForm.value,
+      ...this.settingsData.value,
+      ...this.nextNumberData.value
+    });
+    alert('Toutes les données ont été enregistrées avec succès ! 🎉');
   }
 
   // Fonction pour formater la date

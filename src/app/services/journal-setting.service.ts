@@ -9,6 +9,7 @@ import {JournalSetting} from '../Entities/journal-setting/journal-setting.module
 export class JournalSettingService {
   private apiUrl = 'https://localhost:7023/api/JournalSettingType';
   private baseUrl = 'https://localhost:7023/api/JournalSetting';
+  private formData: any = null;
 
   constructor(private http: HttpClient) {}
 
@@ -17,5 +18,14 @@ export class JournalSettingService {
   }
   createJournalSetting(journalSetting: JournalSetting): Observable<JournalSetting> {
     return this.http.post<JournalSetting>(`${this.baseUrl}/create`, journalSetting);
+  }
+
+
+  saveFormData(data: any) {
+    this.formData = data;
+  }
+
+  getFormData(): any {
+    return this.formData;
   }
 }

@@ -42,14 +42,21 @@
     <!-- Currency Code -->
     <div class="form-group">
       <label>Currency Code</label>
-      <kendo-textbox formControlName="currencyCode" placeholder="Currency Code" [readonly]="true"></kendo-textbox>
+      <kendo-textbox formControlName="JRL_CurrencyCode" placeholder="Currency Code" [readonly]="true"></kendo-textbox>
     </div>
 
 
     <!-- General Ledger -->
     <div class="form-group">
-      <label class="label-required"> General Ledger</label>
-      <kendo-textbox formControlName="JRL_GeneralLedger_Id" placeholder="Enter General Ledger ID"></kendo-textbox>
+      <label class="label-required">General Ledger</label>
+      <kendo-dropdownlist
+        [data]="generalLedgers"
+        [textField]="'gL_Id'"
+        [valueField]="'gL_Id'"
+        [valuePrimitive]="true"
+        formControlName="JRL_GeneralLedger_Id"
+        [defaultItem]="defaultGeneralLedger">
+      </kendo-dropdownlist>
     </div>
 
     <!-- IBAN -->
@@ -61,7 +68,7 @@
     <!-- Exact Administration -->
     <div class="form-group">
       <label class="label-required">Exact Administration</label>
-      <kendo-textbox formControlName="JRL_ExactAdministration" placeholder="Exact Administration"></kendo-textbox>
+      <kendo-textbox formControlName="JRL_ExactAdministration" placeholder="Exact Administration" [readonly]="true"></kendo-textbox>
     </div>
 
     <!-- Exact Journal -->
@@ -89,13 +96,13 @@
   <!-- Bouton de soumission -->
   <div class="submit-container">
     <!-- Bouton Save, désactivé si le formulaire est invalide -->
-    <button kendoButton type="submit" [disabled]="!journalForm.valid" [primary]="true">
+    <button kendoButton type="submit" [disabled]="!journalForm.valid || isSaved" [primary]="true">
       Save
     </button>
 
     <!-- Bouton Next, toujours actif -->
     <!-- Bouton Next, activé seulement après la sauvegarde réussie -->
-    <button kendoButton type="button" (click)="nextStep()" [primary]="true" class="ml-2" >
+    <button kendoButton type="button" (click)="nextStep()" [primary]="true" [disabled]="!isSaved" class="ml-2" >
       Next
     </button>
 

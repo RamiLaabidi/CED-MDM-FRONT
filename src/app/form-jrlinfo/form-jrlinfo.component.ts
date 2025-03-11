@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { LegalEntityTypeService } from '../services/legal-entity-type.service';
 import { JournalTypeService } from '../services/journal-type.service';
 import { LegalEntityService } from '../services/legal-entity.service';
+import {GeneralLedgerService} from '../services/general-ledger.service';
 
 @Component({
   selector: 'app-form-jrlinfo',
@@ -36,12 +37,17 @@ export class FormJRLInfoComponent implements OnInit {
   errorMessage = '';
   legalEntities: any[] = []; // Stores legal entities
   journalTypes: any[] = [];
+  generalLedgers: any[] = []; // ✅ Liste des comptes généraux
+
   defaultJournalType = { jrT_Id: 'Select a journal type' };
-  defaultLegalEntity = { nomComplet: 'Select a Legal Entity' };
+  defaultLegalEntity = { nomComplet: 'Select a legal entity' };
+  defaultGeneralLedger = { gL_Id : 'Select a General ledger' };
+
+  isSaved = false;
 
   nextStep() {
     if (this.journalForm.valid) {
-      this.next.emit(this.journalForm);
+    this.next.emit(this.journalForm);
       this.legalEntityId.emit(this.journalForm.get('JRL_LegalEntity_Id')?.value); // 🔹 Émet la valeur correctement
     }
   }
@@ -52,15 +58,18 @@ export class FormJRLInfoComponent implements OnInit {
     private journalService: JournalService,
     private legalEntityService: LegalEntityTypeService,
     private journalTypeService: JournalTypeService,
-    private legalEntityTwoService: LegalEntityService
+    private legalEntityTwoService: LegalEntityService,
+    private generalLedgerService: GeneralLedgerService
+
   ) {}
 
   ngOnInit(): void {
+
     this.journalForm = this.fb.group({
       JRL_Id: [''],
       JRL_Abbreviation: ['', Validators.required],
       JRL_Description: ['', [Validators.maxLength(30)]],
-      currencyCode: ['', Validators.required],
+      JRL_CurrencyCode: ['', Validators.required],
       JRL_JournalType_Id: ['', Validators.required],
       JRL_GeneralLedger_Id: ['', Validators.required],
       JRL_BankAccount_Id: [{ value: '', disabled: true }, Validators.required],
@@ -70,6 +79,14 @@ export class FormJRLInfoComponent implements OnInit {
       JRL_Inactive: [false]
     });
 
+    // 🔹 Écoute du changement de LegalEntity pour charger les General Ledgers
+    this.journalForm.get('JRL_LegalEntity_Id')?.valueChanges.subscribe(legalEntityId => {
+      if (legalEntityId) {
+        this.loadGeneralLedgers(legalEntityId);
+      } else {
+        this.generalLedgers = []; // Réinitialisation si aucun Legal Entity sélectionné
+      }
+    });
 
     this.journalForm.get('JRL_JournalType_Id')?.valueChanges.subscribe(selectedJournalType => {
       if (selectedJournalType === 'Bank') {
@@ -116,7 +133,7 @@ export class FormJRLInfoComponent implements OnInit {
           .subscribe({
             next: (response) => {
               console.log("Données reçues :", response); // Vérifie la structure des données
-              this.journalForm.patchValue({ currencyCode: response.currencyCode }); // Utilisation correcte de currencyCode
+              this.journalForm.patchValue({ JRL_CurrencyCode: response.currencyCode }); // Utilisation correcte de currencyCode
             },
             error: (error: HttpErrorResponse) => {
               console.error('Erreur lors de la récupération du code devise', error);
@@ -127,7 +144,18 @@ export class FormJRLInfoComponent implements OnInit {
     });
 
   }
-
+  // ✅ Charge les comptes généraux selon l'ID de l'entité légale
+  private loadGeneralLedgers(legalEntityId: string): void {
+    this.generalLedgerService.getActiveGeneralLedgers(legalEntityId).subscribe({
+      next: (data) => {
+        this.generalLedgers = data.map(generalLedger => ({ gL_Id : generalLedger.gL_Id  }));
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Erreur lors du chargement des General Ledgers', error);
+        this.generalLedgers = [];
+      }
+    });
+  }
 
   private loadLegalEntities(): void {
     this.legalEntityService.getInactiveLegalEntityTypes().subscribe({
@@ -146,6 +174,7 @@ export class FormJRLInfoComponent implements OnInit {
       }
     });
   }
+
 
   private loadJournalTypes(): void {
     this.journalTypeService.getAllJournalTypes().subscribe({
@@ -172,7 +201,7 @@ export class FormJRLInfoComponent implements OnInit {
           alert('Journal créé avec succès !');
           this.journalCreated.emit(journalData);
           this.isSubmitting = false;
-          //this.isSaved = true;  // ✅ Activation du bouton Next
+          this.isSaved = true;  // ✅ Activation du bouton Next
           this.journalForm.disable(); // Désactiver tous les champs après sauvegarde
           this.journalForm.get('JRL_LegalEntity_Id')?.enable(); // 🔹 Réactiver uniquement ce champ
 

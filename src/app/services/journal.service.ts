@@ -9,12 +9,11 @@ import {Observable} from 'rxjs';
 export class JournalService {
   private apiUrl = 'https://localhost:7023/api/journal';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   createJournal(journal: Journal): Observable<Journal> {
     return this.http.post<Journal>(this.apiUrl, journal);
   }
-
-
 
 }

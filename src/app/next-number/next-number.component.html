@@ -1,0 +1,61 @@
+<form [formGroup]="nextNumberForm" (ngSubmit)="submitForm()" class="k-form">
+  <div class="form-container">
+    <!-- Name -->
+    <div class="form-group">
+      <label>Name</label>
+      <kendo-textbox formControlName="name" placeholder="Next Number name"></kendo-textbox>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label>Description</label>
+      <kendo-textarea formControlName="description" placeholder="Description..."></kendo-textarea>
+    </div>
+
+    <!-- Number -->
+    <div class="form-group">
+      <label>Number</label>
+      <kendo-numerictextbox formControlName="number" [min]="1" placeholder="Initial number"></kendo-numerictextbox>
+    </div>
+
+    <!-- Start Range -->
+    <div class="form-group">
+      <label>Start Range</label>
+      <kendo-numerictextbox formControlName="startRange" [min]="0" placeholder="Start value"></kendo-numerictextbox>
+    </div>
+
+    <!-- End Range -->
+    <div class="form-group">
+      <label>End Range</label>
+      <kendo-numerictextbox formControlName="endRange" [min]="0" placeholder="End value"></kendo-numerictextbox>
+    </div>
+
+    <!-- Start Date -->
+    <div class="form-group">
+      <label>Start Date</label>
+      <kendo-datepicker formControlName="startDate"></kendo-datepicker>
+    </div>
+
+    <!-- End Date -->
+    <div class="form-group">
+      <label>End Date</label>
+      <kendo-datepicker formControlName="endDate"></kendo-datepicker>
+    </div>
+
+    <!-- Created By -->
+    <div class="form-group">
+      <label>Created By</label>
+      <kendo-textbox formControlName="createdBy" placeholder="Creator's name"></kendo-textbox>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="submit-container">
+    <button kendoButton type="button" (click)="previous.emit()" [primary]="false">
+      ⬅ Back
+    </button>
+    <button kendoButton type="submit" [disabled]="!nextNumberForm.valid" [primary]="true">
+      Save
+    </button>
+  </div>
+</form>

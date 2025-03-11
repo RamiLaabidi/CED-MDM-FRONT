@@ -1,8 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
 /* Changer la couleur de fond du body */
 body {
-  background-color: rgba(255, 255, 255, 0.62); /* Choisissez la couleur que vous souhaitez */
+  background-color: rgba(0, 0, 0, 0.08); /* Choisissez la couleur que vous souhaitez */
 }
 * {
   font-family: Arial, sans-serif;
+}
+/* ✅ Réinitialisation CSS pour éviter les incohérences entre navigateurs */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ✅ Appliquer une largeur max sur tous les containers */
+.container {
+  max-width: 1200px; /* Largeur max pour les écrans larges */
+  margin: auto;
+  padding: 20px;
+}
+
+/* ✅ Responsive général sur les textes */
+h1, h2, h3, h4 {
+  font-size: clamp(1.5rem, 2vw, 2.5rem); /* Ajuste la taille du texte en fonction de l'écran */
+}
+
+p {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.6;
+}
+
+/* ✅ Responsive pour flexbox */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* ✅ Responsive pour les images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ✅ Media Queries pour adapter sur mobile */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .flex-container {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
 }

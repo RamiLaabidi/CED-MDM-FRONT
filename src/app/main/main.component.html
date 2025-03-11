@@ -1,8 +1,6 @@
 <div class="container">
-  <!-- Afficher General Information toujours -->
   <app-general-information [journalInfo]="journalForm.value"></app-general-information>
 
-  <!-- Afficher FormJRLInfo à l'étape 1, puis Journal Settings à l'étape 2 -->
   <div *ngIf="stepIndex === 1">
     <app-form-jrlinfo (journalCreated)="updateJournalData($event)" (next)="nextStep($event)"></app-form-jrlinfo>
   </div>
@@ -12,7 +10,12 @@
       [journalData]="journalForm.value"
       [jrlId]="journalForm.get('jrlId')?.value"
       [legalEntityId]="journalForm.value.JRL_LegalEntity_Id"
-    (previous)="previousStep()">
+      (previous)="previousStep()"
+      (next)="nextStep($event)">
     </app-journal-settings>
+  </div>
+
+  <div *ngIf="stepIndex === 3">
+    <app-next-number (previous)="previousStep()" (submit)="submitNextNumber($event)"></app-next-number>
   </div>
 </div>

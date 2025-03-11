@@ -4,7 +4,7 @@
   border-radius: 6px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Ombre douce pour l'élément */
   margin-bottom: 20px;
-  border-left: 9px solid #552490; /* Bordure gauche colorée */
+  border-left: 9px solid #86bc33; /* Bordure gauche colorée */
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
@@ -15,8 +15,8 @@
 
 h3 {
   font-size: 1.5rem;
-  font-weight: 500;
-  color: #552490; /* Utilisation du violet pour le titre */
+  font-weight: 650;
+  color: #86bc33; /* Utilisation du violet pour le titre */
   margin-bottom: 15px;
 }
 
