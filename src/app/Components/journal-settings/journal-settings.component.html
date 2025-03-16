@@ -1,0 +1,81 @@
+<form [formGroup]="journalSettingForm" (ngSubmit)="submitForm()" class="k-form">
+  <div class="form-container">
+
+    <!-- Entry System -->
+    <div class="form-group">
+      <label class="label-required">Entry System</label>
+      <kendo-textbox formControlName="JLS_EntrySystem" placeholder="Enter Entry System Code"></kendo-textbox>
+    </div>
+
+    <!-- Journal Setting Type -->
+    <div class="form-group">
+      <label class="label-required">Journal Setting Type</label>
+      <kendo-dropdownlist
+        [data]="journalSettingTypes"
+        [textField]="'description'"
+        [valueField]="'id'"
+        [valuePrimitive]="true"
+        formControlName="JLS_JournalSettingType_Id">
+      </kendo-dropdownlist>
+    </div>
+
+
+    <!-- Effective Date -->
+    <div class="form-group">
+      <label class="label-required">Effective Date</label>
+      <kendo-datepicker formControlName="JLS_EffectiveDate" [readonly]="true"></kendo-datepicker>
+    </div>
+
+    <!-- Termination Date -->
+    <div class="form-group">
+      <label class="label-required">Termination Date</label>
+      <kendo-datepicker formControlName="JLS_TerminationDate"></kendo-datepicker>
+    </div>
+
+
+    <!-- Zero Rate Foreign Tax Code -->
+    <div class="form-group">
+      <label>Zero Rate Foreign Tax Code</label>
+      <kendo-textbox formControlName="JLS_ZeroRateForeignTaxCode" placeholder="Enter Tax Code"></kendo-textbox>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <kendo-dialog *ngIf="showDialog" (close)="onDialogClose(false)" class="custom-dialog">
+    <div class="dialog-header">
+      <div class="dialog-title">Confirmation</div>
+    </div>
+    <p class="dialog-message">Do you want to add another journal setting to this journal ?</p>
+    <kendo-dialog-actions class="dialog-actions">
+      <button kendoButton (click)="onDialogClose(true)" [primary]="true" class="btn-yes">YES</button>
+      <button kendoButton (click)="onDialogClose(false)" class="btn-no">NO</button>
+    </kendo-dialog-actions>
+  </kendo-dialog>
+
+
+
+  <!-- Navigation Buttons -->
+  <div class="submit-container">
+    <button kendoButton type="button" (click)="previousStep()" [primary]="false">
+      ⬅ Back
+    </button>
+    <button kendoButton type="submit" [disabled]="!journalSettingForm.valid" [primary]="true">
+      Save
+    </button>
+    <button kendoButton type="button" (click)="nextStep()" [primary]="false">
+      ➡ Next
+    </button>
+  </div>
+</form>

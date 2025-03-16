@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="general-info" *ngIf="generalLedgerInfo">
+    <h3>{{ isSaved ? 'General Ledger Information' : 'Create a General Ledger' }}</h3>
+    <div class="info-container">
+      <div class="info-item">
+        <span class="info-label">General Ledger ID :</span><br>
+        <strong>{{ generalLedgerInfo.GL_Id }}</strong>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Created Date :</span><br>
+        <strong>{{ generalLedgerInfo.GL_CreatedDate }}</strong>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Last Modified Date :</span><br>
+        <strong>{{ generalLedgerInfo.GL_LastModifiedDate }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="generalLedgerForm" (ngSubmit)="submitForm()" class="k-form">
+
+    <div class="form-container">
+
+
+
+      <div class="form-group">
+        <label class="label-required">Exact Administration Ref ° :</label>
+        <kendo-textbox formControlName="GL_ExactAdministration" placeholder="Enter Exact Administration"></kendo-textbox>
+      </div>
+
+      <div class="form-group">
+        <label class="label-required">Exact General Ledger Ref ° :</label>
+        <kendo-textbox formControlName="GL_ExactGeneralLedger" placeholder="Enter Exact General Ledger"></kendo-textbox>
+      </div>
+
+      <div class="form-group full-width">
+        <label>Account Description :</label>
+        <kendo-textarea formControlName="GL_Description" [maxlength]="100" placeholder="Enter description"></kendo-textarea>
+      </div>
+
+      <div class="form-group d-flex align-items-center">
+        <label>Account Status :</label>
+        <kendo-switch formControlName="GL_Inactive" [onLabel]="'ON'" [offLabel]="'OFF'"></kendo-switch>
+      </div>
+
+      <!-- Suspense Account -->
+      <div class="form-group d-flex align-items-center">
+        <label>Suspense Account ? </label>
+        <kendo-switch formControlName="GL_IsSuspenseAccount" [onLabel]="'Yes'" [offLabel]="'No'"></kendo-switch>
+      </div>
+
+      <div class="form-group d-flex align-items-center">
+        <label>Primary Process ?</label>
+        <kendo-switch formControlName="GL_IsPrimaryProcess" [onLabel]="'Yes'" [offLabel]="'No'"></kendo-switch>
+      </div>
+
+      <div class="form-group d-flex align-items-center">
+        <label>Profit & Loss Account ? </label>
+        <kendo-switch formControlName="GL_IsProfitLossAccount" [onLabel]="'Yes'" [offLabel]="'No'"></kendo-switch>
+      </div>
+
+
+
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div class="submit-container">
+      <button kendoButton type="submit" [disabled]="!generalLedgerForm.valid || isSaved" [primary]="true">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

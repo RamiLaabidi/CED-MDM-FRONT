@@ -58,3 +58,18 @@ img {
     font-size: 1.8rem;
   }
 }
+::ng-deep .k-grid tr:hover {
+  background-color: rgba(85, 36, 144, 0.15) !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+::ng-deep .k-grid tr.k-state-selected {
+  background-color: rgba(85, 36, 144, 0.25) !important;
+  color: white !important;
+}
+
+::ng-deep .k-grid tr:active {
+  background-color: rgba(118, 72, 181, 0.35) !important;
+  transition: background-color 0.1s ease-in-out;
+}
+

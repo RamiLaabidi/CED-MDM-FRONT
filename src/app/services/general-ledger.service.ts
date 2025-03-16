@@ -15,4 +15,19 @@ export class GeneralLedgerService {
   getActiveGeneralLedgers(legalEntityId: string): Observable<GeneralLedger[]> {
     return this.http.get<GeneralLedger[]>(`${this.apiUrl}/by-legal-entity/${legalEntityId}`);
   }
+
+  getById(glId: string): Observable<GeneralLedger> {
+    return this.http.get<GeneralLedger>(`${this.apiUrl}/${glId}`);
+  }
+
+  updateGL(glId: string, generalLedger: GeneralLedger): Observable<GeneralLedger> {
+    return this.http.put<GeneralLedger>(`${this.apiUrl}/${glId}`, generalLedger);
+  }
+
+  createGL(generalLedger: GeneralLedger): Observable<GeneralLedger> {
+    return this.http.post<GeneralLedger>(this.apiUrl, generalLedger);
+  }
+  getAllGeneralLedgers(): Observable<GeneralLedger[]> {
+    return this.http.get<GeneralLedger[]>(this.apiUrl);
+  }
 }
