@@ -1,31 +1,79 @@
 .container {
-  max-width: 1200px;
-  padding: 20px;
-  margin-top: 60px; /* Décale légèrement vers le bas */
-
-
+  max-width: 1400px;
+  padding: 30px;
+  margin-top: 60px;
 }
+
 body {
-  background-color: #0080ff; /* Choisis une couleur douce */
+  background-color: #0080ff;
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
+/* Stepper Indicator */
 .stepper-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.k-step {
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
   flex-grow: 1;
-  text-align: center;
 }
 
-.k-step .k-step-label {
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.step-label {
+  margin-top: 8px;
   font-weight: bold;
   color: #333;
 }
 
-.k-step-current .k-step-label {
-  color: #0080ff; /* Couleur rouge du design */
+/* Ligne entre les étapes */
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #ccc;
+  top: 20px;
+  left: 50%;
+  transform: translateX(50%);
+  z-index: -1;
+}
+
+/* État actif */
+.step-active .step-circle {
+  background-color: #0080ff;
+  color: white;
+}
+
+.step-active .step-label {
+  color: #0080ff;
+}
+
+/* État complété */
+.step-completed .step-circle {
+  background-color: #4caf50;
+}
+
+.step-completed .step-label {
+  color: #4caf50;
 }

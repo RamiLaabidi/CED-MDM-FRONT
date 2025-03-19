@@ -2,18 +2,18 @@
   background-color: #fff;
   padding: 25px;
   border-radius: 6px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Ombre douce pour l'élément */
+ /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); */
   margin-bottom: 20px;
-  border-left: 9px solid #86bc33; /* Bordure gauche colorée */
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  /*border-left: 9px solid #86bc33; */
+ /* transition: box-shadow 0.3s ease, transform 0.3s ease;*/
 }
 
 
 
 h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #86bc33; /* Utilisation du violet pour le titre */
+  font-size: 1.25rem;
+  font-weight: 430;
+  color: #000000; /* Utilisation du violet pour le titre */
   margin-bottom: 15px;
 }
 
@@ -25,15 +25,15 @@ h3 {
 
 .info-item {
   flex: 1;
-  min-width: 200px;
-  font-size: 0.95rem;
-  color: #333;
+  min-width: 180px;
+  font-size: 0.93rem;
+  color: #000000;
 }
 
 .info-label {
-  font-weight: 400;
-  color: rgba(51, 51, 51, 0.68); /* Bleu pour les labels */
-  font-size: 1.05rem;
+  font-weight: 150;
+  color: rgba(51, 51, 51, 0.56); /* Bleu pour les labels */
+  font-size: 0.90rem;
 }
 
 strong {

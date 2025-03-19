@@ -15,5 +15,8 @@ export class JournalService {
   createJournal(journal: Journal): Observable<Journal> {
     return this.http.post<Journal>(this.apiUrl, journal);
   }
+  getAllJournals(): Observable<Journal[]> {
+    return this.http.get<Journal[]>(this.apiUrl);
+  }
 
 }

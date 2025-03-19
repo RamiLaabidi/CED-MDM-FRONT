@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* Changer la couleur de fond du body */
 body {
-  background-color: rgba(0, 0, 0, 0.08); /* Choisissez la couleur que vous souhaitez */
+  background-color: rgb(245, 245, 245); /* Choisissez la couleur que vous souhaitez */
 }
 * {
   font-family: Arial, sans-serif;
@@ -15,7 +15,7 @@ body {
 
 /* ✅ Appliquer une largeur max sur tous les containers */
 .container {
-  max-width: 1200px; /* Largeur max pour les écrans larges */
+  max-width: 1400px; /* Largeur max pour les écrans larges */
   margin: auto;
   padding: 20px;
 }
