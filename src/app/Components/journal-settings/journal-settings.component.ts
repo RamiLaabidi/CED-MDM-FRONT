@@ -1,31 +1,31 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { TextBoxComponent} from '@progress/kendo-angular-inputs';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {DatePickerComponent} from '@progress/kendo-angular-dateinputs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {FormBuilder, FormArray, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import { JournalSettingService } from '../../services/journal-setting.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import {TextBoxComponent} from '@progress/kendo-angular-inputs';
 import {DropDownListComponent} from '@progress/kendo-angular-dropdowns';
+import {DatePickerComponent} from '@progress/kendo-angular-dateinputs';
 import {ButtonComponent} from '@progress/kendo-angular-buttons';
-import {CommonModule} from '@angular/common';
-import {debounceTime, distinctUntilChanged} from 'rxjs';
-import { DialogModule } from '@progress/kendo-angular-dialog';
-import {JournalSettingService} from '../../services/journal-setting.service';
+import {NgForOf, NgIf} from '@angular/common';
+import {DialogActionsComponent, DialogComponent} from '@progress/kendo-angular-dialog';
 
 @Component({
   selector: 'app-journal-settings',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    DropDownListComponent,
-    DatePickerComponent,
-    TextBoxComponent,
-    ButtonComponent,
-    CommonModule,
-    DialogModule,
-
-  ],
   templateUrl: './journal-settings.component.html',
+  imports: [
+    TextBoxComponent,
+    DropDownListComponent,
+    ReactiveFormsModule,
+    DatePickerComponent,
+    ButtonComponent,
+    NgIf,
+    DialogActionsComponent,
+    DialogComponent
+  ],
   styleUrl: './journal-settings.component.css'
 })
-export class JournalSettingsComponent implements OnInit  {
+export class JournalSettingsComponent implements OnInit {
   @Input() journalData!: FormGroup;
   @Input() jrlId!: string;  // Ajout de l'input pour recevoir l'ID du journal
   @Input() legalEntityId!: string; // 🔹 Réception de JRL_LegalEntity_Id
@@ -40,7 +40,7 @@ export class JournalSettingsComponent implements OnInit  {
 
 
   constructor(private fb: FormBuilder  ,  private journalSettingService: JournalSettingService
-) {}
+  ) {}
 
   ngOnInit(): void {
     const savedData = this.journalSettingService.getFormData();
@@ -108,7 +108,7 @@ export class JournalSettingsComponent implements OnInit  {
     }
   }
   nextStep() {
-   // this.next.emit(this.journalSettingForm);
+    // this.next.emit(this.journalSettingForm);
     this.showDialog = true;  // Affiche la popup
     this.journalSettingService.saveFormData(this.journalSettingForm.value);
     this.journalSettingForm.disable();

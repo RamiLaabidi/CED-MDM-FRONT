@@ -39,19 +39,25 @@
 
     </div>
 
+
     <!-- Currency Code -->
     <div class="form-group">
       <label class="label-required">Currency Code</label>
-      <kendo-textbox formControlName="JRL_CurrencyCode" placeholder="Currency Code" [readonly]="true"></kendo-textbox>
+      <kendo-dropdownlist
+        [data]="currencies"
+        [textField]="'name'"
+        [valueField]="'CRR_Id'"
+        [valuePrimitive]="true"
+        formControlName="JRL_CurrencyCode">
+      </kendo-dropdownlist>
     </div>
-
 
     <!-- General Ledger -->
     <div class="form-group">
       <label class="label-required">General Ledger</label>
       <kendo-dropdownlist
         [data]="generalLedgers"
-        [textField]="'gL_Id'"
+        [textField]="'displayText'"
         [valueField]="'gL_Id'"
         [valuePrimitive]="true"
         formControlName="JRL_GeneralLedger_Id"
@@ -59,10 +65,10 @@
       </kendo-dropdownlist>
     </div>
 
-    <!-- IBAN -->
+    <!-- BANCACCOUNT -->
     <div class="form-group">
-      <label>Iban</label>
-      <kendo-textbox formControlName="JRL_BankAccount_Id" placeholder="Enter IBAN" [disabled]="isSaved"></kendo-textbox>
+      <label>Bank Account</label>
+      <kendo-textbox formControlName="JRL_BankAccount_Id" placeholder="Enter Bank Account" [disabled]="isSaved"></kendo-textbox>
     </div>
 
     <!-- Exact Administration -->

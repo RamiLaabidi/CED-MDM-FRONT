@@ -2,60 +2,92 @@
   <div class="form-container">
     <!-- Name -->
     <div class="form-group">
-      <label>Name</label>
-      <kendo-textbox formControlName="name" placeholder="Next Number name"></kendo-textbox>
-    </div>
-
-    <!-- Description -->
-    <div class="form-group">
-      <label>Description</label>
-      <kendo-textarea formControlName="description" placeholder="Description..."></kendo-textarea>
-    </div>
-
-    <!-- Number -->
-    <div class="form-group">
-      <label>Number</label>
-      <kendo-numerictextbox formControlName="number" [min]="1" placeholder="Initial number"></kendo-numerictextbox>
+      <label class="label-required">Name</label>
+      <kendo-textbox formControlName="NEX_Name"  placeholder="Enter Next Number Name">
+      </kendo-textbox>
     </div>
 
     <!-- Start Range -->
     <div class="form-group">
-      <label>Start Range</label>
-      <kendo-numerictextbox formControlName="startRange" [min]="0" placeholder="Start value"></kendo-numerictextbox>
+      <label class="label-required">Start Range</label>
+      <kendo-textbox formControlName="NEX_StartRange"  placeholder="Enter Start Range Value">
+      </kendo-textbox>
     </div>
 
     <!-- End Range -->
     <div class="form-group">
-      <label>End Range</label>
-      <kendo-numerictextbox formControlName="endRange" [min]="0" placeholder="End value"></kendo-numerictextbox>
+      <label  class="label-required">End Range</label>
+      <kendo-textbox formControlName="NEX_EndRange" placeholder="Enter End Range Value">
+      </kendo-textbox>
+    </div>
+
+    <!-- Number -->
+    <div class="form-group">
+      <label>Next Number</label>
+      <kendo-textbox formControlName="neX_Number"  placeholder="Next Number">
+      </kendo-textbox>
     </div>
 
     <!-- Start Date -->
     <div class="form-group">
-      <label>Start Date</label>
-      <kendo-datepicker formControlName="startDate"></kendo-datepicker>
+      <label  class="label-required">Start Date</label>
+      <kendo-datepicker formControlName="NEX_StartDate" >
+      </kendo-datepicker>
     </div>
 
     <!-- End Date -->
     <div class="form-group">
-      <label>End Date</label>
-      <kendo-datepicker formControlName="endDate"></kendo-datepicker>
+      <label >End Date</label>
+      <kendo-datepicker formControlName="NEX_EndDate" >
+      </kendo-datepicker>
     </div>
 
-    <!-- Created By -->
     <div class="form-group">
-      <label>Created By</label>
-      <kendo-textbox formControlName="createdBy" placeholder="Creator's name"></kendo-textbox>
+      <label>Our Ref Equal to Entry Number ?</label>
+      <kendo-switch formControlName="NEX_OurRef_EntryNumber" >
+      </kendo-switch>
     </div>
+
+
+    <!-- New Fields -->
+    <div class="form-group">
+      <label >Start Range Our Ref</label>
+      <kendo-textbox formControlName="NEX_StartRangeOurRef"  placeholder="Start Range Our Ref">
+      </kendo-textbox>
+    </div>
+
+    <div class="form-group">
+      <label>End Range Our Ref</label>
+      <kendo-textbox formControlName="NEX_EnRangeOurRef"  placeholder="End Range Our Ref">
+      </kendo-textbox>
+    </div>
+
+    <div class="form-group">
+      <label>Next Number Our Ref</label>
+      <kendo-textbox formControlName="NEX_NumberOurRef"  placeholder="Number Our Ref">
+      </kendo-textbox>
+    </div>
+
+
   </div>
 
+
+  <!-- Description -->
+  <div class="form-group">
+    <label >Description</label>
+    <kendo-textarea formControlName="NEX_Description"  placeholder="Enter Description">
+    </kendo-textarea>
+  </div>
   <!-- Navigation Buttons -->
   <div class="submit-container">
-    <button kendoButton type="button" (click)="previous.emit()" [primary]="false">
+    <button kendoButton type="button" (click)="previous.emit()" class="btn-back">
       ⬅ Back
     </button>
-    <button kendoButton type="submit" [disabled]="!nextNumberForm.valid" [primary]="true">
+    <button kendoButton type="submit"  [disabled]="formSaved" class="btn-save">
       Save
+    </button>
+    <button kendoButton type="button" class="btn-add" [disabled]="!formSaved"(click)="resetForm()">
+      Add NEX
     </button>
   </div>
 </form>

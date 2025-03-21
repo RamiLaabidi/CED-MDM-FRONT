@@ -7,7 +7,7 @@
 }
 
 /* Style des champs de saisie et dropdowns */
-kendo-textbox, kendo-dropdownlist,kendo-datepicker,  kendo-numerictextbox {
+kendo-textbox, kendo-dropdownlist, kendo-numerictextbox, kendo-datepicker {
   border: 1px solid rgba(0, 0, 0, 0.22);
   padding: 10px 12px;
   border-radius: 4px;
@@ -44,7 +44,7 @@ label {
 
 input, textarea {
   border: 1px solid #ddd;
-  padding: 10px 12px;
+  padding: 20px 15px;
   border-radius: 4px;
   font-size: 0.95rem;
   outline: none;

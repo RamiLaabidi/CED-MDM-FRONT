@@ -11,7 +11,17 @@ export class NextNumberService {
 
   constructor(private http: HttpClient) {}
 
+
+  // Ajouter un NextNumber
   addNextNumber(nextNumber: NextNumber): Observable<NextNumber> {
-    return this.http.post<NextNumber>(this.apiUrl, nextNumber);
+    return this.http.post<NextNumber>(`${this.apiUrl}/add`, nextNumber);
+  }
+
+  // Récupérer un NextNumber par ID
+  getNextNumber(id: number): Observable<NextNumber> {
+    return this.http.get<NextNumber>(`${this.apiUrl}/${id}`);
+  }
+  getLastEntry(): Observable<NextNumber> {
+    return this.http.get<NextNumber>(`${this.apiUrl}/last`);
   }
 }

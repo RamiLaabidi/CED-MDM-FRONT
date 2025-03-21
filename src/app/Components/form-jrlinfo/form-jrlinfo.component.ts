@@ -12,6 +12,7 @@ import { JournalTypeService } from '../../services/journal-type.service';
 import { LegalEntityService } from '../../services/legal-entity.service';
 import {GeneralLedgerService} from '../../services/general-ledger.service';
 import {BankAccountService} from '../../services/bank-account.service';
+import {CurrencyServiceService} from '../../services/currency-service.service';
 
 @Component({
   selector: 'app-form-jrlinfo',
@@ -39,10 +40,11 @@ export class FormJRLInfoComponent implements OnInit {
   legalEntities: any[] = []; // Stores legal entities
   journalTypes: any[] = [];
   generalLedgers: any[] = []; // ✅ Liste des comptes généraux
+  currencies: any[] = []; // Liste des devises disponibles
 
   defaultJournalType = {jrT_Id: 'Select a journal type'};
   defaultLegalEntity = {nomComplet: 'Select a legal entity'};
-  defaultGeneralLedger = {gL_Id: 'Select a General ledger'};
+  defaultGeneralLedger = {displayText: 'Select a General ledger'};
 
   isSaved = false;
 
@@ -61,7 +63,9 @@ export class FormJRLInfoComponent implements OnInit {
     private journalTypeService: JournalTypeService,
     private legalEntityTwoService: LegalEntityService,
     private generalLedgerService: GeneralLedgerService,
-    private bankAccountService: BankAccountService
+    private bankAccountService: BankAccountService,
+    private currencyServiceService: CurrencyServiceService
+
   ) {
   }
 
@@ -97,21 +101,33 @@ export class FormJRLInfoComponent implements OnInit {
         this.journalForm.patchValue({ JRL_BankAccount_Id: '' }); // Réinitialise
       }
     });
+    // Charger toutes les devises
+    this.currencyServiceService.getActiveCurrencyIds().subscribe({
+      next: (data) => {
+        this.currencies = data;
+      },
+      error: (err) => {
+        console.error("Erreur lors de la récupération des devises :", err);
+      }
+    });
 
 // 🔹 Écoute du changement de type de journal
-    this.journalForm.get('JRL_JournalType_Id')?.valueChanges.subscribe(selectedJournalType => {
-      const legalEntityId = this.journalForm.get('JRL_LegalEntity_Id')?.value;
-
-      if (selectedJournalType === 'Bank') {
-        this.journalForm.get('JRL_BankAccount_Id')?.enable();
-
-        // 🔹 Charge l'IBAN si une entité est déjà sélectionnée
-        if (legalEntityId) {
-          this.loadBankAccount(legalEntityId);
-        }
-      } else {
-        this.journalForm.get('JRL_BankAccount_Id')?.disable();
-        this.journalForm.patchValue({ JRL_BankAccount_Id: '' }); // Réinitialise
+    this.journalForm.get('JRL_LegalEntity_Id')?.valueChanges.subscribe(selectedId => {
+      const selectedEntity = this.legalEntities.find(entity => entity.lE_Id === selectedId);
+      if (selectedEntity) {
+        this.legalEntityTwoService.getCurrencyCode(selectedEntity.leT_ShortName, selectedEntity.leT_LongName)
+          .subscribe({
+            next: (response) => {
+              // Trouver la devise correspondante pour définir la valeur par défaut
+              const defaultCurrency = this.currencies.find(c => c.name === response.currencyCode);
+              if (defaultCurrency) {
+                this.journalForm.patchValue({ JRL_CurrencyCode: defaultCurrency.CRR_Id });
+              }
+            },
+            error: (error) => {
+              console.error('Erreur lors de la récupération du code devise', error);
+            }
+          });
       }
     });
     this.loadLegalEntities();
@@ -168,7 +184,14 @@ export class FormJRLInfoComponent implements OnInit {
   private loadGeneralLedgers(legalEntityId: string): void {
     this.generalLedgerService.getActiveGeneralLedgers(legalEntityId).subscribe({
       next: (data) => {
-        this.generalLedgers = data.map(generalLedger => ({gL_Id: generalLedger.gL_Id}));
+        this.generalLedgers = data.map(generalLedger => ({
+          gL_Id: generalLedger.gL_Id, // Ajout de l'ID
+          gL_ExactGeneralLedger: generalLedger.gL_ExactGeneralLedger,
+          gL_Description: generalLedger.gL_Description ,//
+          displayText: `${generalLedger.gL_Description} - ${generalLedger.gL_ExactGeneralLedger}` // 🔥 Formatage
+
+        }));
+
       },
       error: (error: HttpErrorResponse) => {
         console.error('Erreur lors du chargement des General Ledgers', error);
@@ -198,8 +221,8 @@ export class FormJRLInfoComponent implements OnInit {
   private loadBankAccount(legalEntityId: string): void {
     this.bankAccountService.getBankAccountByLegalEntity(legalEntityId).subscribe({
       next: (data) => {
-        if (data && data.iban) {
-          this.journalForm.patchValue({JRL_BankAccount_Id: data.iban}); // Affiche l'IBAN
+        if (data && data.baC_Id) {
+          this.journalForm.patchValue({JRL_BankAccount_Id: data.baC_Id}); // Affiche l'IBAN
           this.journalForm.get('JRL_BankAccount_Id')?.enable(); // Active le champ
         } else {
           this.journalForm.patchValue({JRL_BankAccount_Id: ''}); // Réinitialise si pas d'IBAN
