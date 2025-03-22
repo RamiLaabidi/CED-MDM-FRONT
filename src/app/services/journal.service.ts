@@ -18,5 +18,12 @@ export class JournalService {
   getAllJournals(): Observable<Journal[]> {
     return this.http.get<Journal[]>(this.apiUrl);
   }
+  updateJournal(jrlId: string, updatedJournal: Journal): Observable<Journal> {
+    return this.http.put<Journal>(`${this.apiUrl}/${jrlId}`, updatedJournal);
+  }
 
+
+  getJournalByIdWithSettings(jrlId: string): Observable<Journal> {
+    return this.http.get<Journal>(`${this.apiUrl}/withJS/${jrlId}`);
+  }
 }

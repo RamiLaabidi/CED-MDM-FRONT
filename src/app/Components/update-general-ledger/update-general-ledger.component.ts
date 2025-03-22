@@ -17,7 +17,7 @@ import { ButtonComponent } from '@progress/kendo-angular-buttons';
     DatePipe,
     SwitchComponent,
     TextAreaComponent,
-    DatePickerComponent,
+    //DatePickerComponent,
     ButtonComponent,
     CommonModule
   ],
@@ -41,7 +41,6 @@ export class UpdateGeneralLedgerComponent implements OnInit {
   ngOnInit(): void {
     this.glId = this.route.snapshot.paramMap.get('id')!;
 
-    // ✅ Initialisation immédiate du formulaire vide pour éviter l'erreur NG01052
     this.generalLedgerForm = this.fb.group({
       gL_ExactAdministration: [''],
       gL_ExactGeneralLedger: [''],

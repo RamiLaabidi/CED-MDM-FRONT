@@ -12,8 +12,12 @@ export class GeneralLedgerService {
 
   constructor(private http: HttpClient) {}
 
-  getActiveGeneralLedgers(legalEntityId: string): Observable<GeneralLedger[]> {
+  /*getActiveGeneralLedgers(legalEntityId: string): Observable<GeneralLedger[]> {
     return this.http.get<GeneralLedger[]>(`${this.apiUrl}/by-legal-entity/${legalEntityId}`);
+  }*/
+
+  getActiveGeneralLedgers(): Observable<GeneralLedger[]> {
+    return this.http.get<GeneralLedger[]>(`${this.apiUrl}/active`);
   }
 
   getById(glId: string): Observable<GeneralLedger> {

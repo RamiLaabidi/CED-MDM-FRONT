@@ -1,18 +1,9 @@
 <div class="container">
   <div class="general-info">
-    <h3>All Journals</h3>
-  </div>
-
-  <div class="toolbar">
-    <button kendoButton (click)="loadJournals()" class="refresh-btn">
-      Refresh
-    </button>
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      placeholder="Search by ID or Type"
-      class="search-input"
-    />
+    <div class="header">
+      <h2>Journals</h2>
+      <button kendoButton (click)="addJournal()" class="add-btn">Add</button>
+    </div>
   </div>
 
   <div class="tab">
@@ -23,13 +14,26 @@
       [sortable]="true"
       [pageable]="true"
       [selectable]="true"
-      (selectionChange)="onRowSelect($event)"
       class="shadow-sm rounded modern-grid"
     >
-      <kendo-grid-column field="jrL_Id" title="Journal ID " [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jrL_Id" title="Journal ID" [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
       <kendo-grid-column field="jrL_Abbreviation" title="Journal Abbreviation" [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
       <kendo-grid-column field="jrL_JournalType_Id" title="Journal Type" [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
       <kendo-grid-column field="jrL_Description" title="Journal Description" [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jrL_Inactive" title="Status" [width]="150" [headerStyle]="{'font-weight': 'bold'}">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <kendo-switch [checked]="dataItem.jrL_Inactive" [disabled]="true"></kendo-switch>
+        </ng-template>
+      </kendo-grid-column>
+
+      <!-- Colonne : Icône de modification -->
+      <kendo-grid-column title="Edit" [width]="100" [headerStyle]="{'font-weight': 'bold'}">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <button class="edit-btn" (click)="navigateToEdit(dataItem.jrL_Id)">
+            🖊️
+          </button>
+        </ng-template>
+      </kendo-grid-column>
 
     </kendo-grid>
   </div>

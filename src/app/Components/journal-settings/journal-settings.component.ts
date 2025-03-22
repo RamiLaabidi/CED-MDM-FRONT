@@ -8,6 +8,8 @@ import {DatePickerComponent} from '@progress/kendo-angular-dateinputs';
 import {ButtonComponent} from '@progress/kendo-angular-buttons';
 import {NgForOf, NgIf} from '@angular/common';
 import {DialogActionsComponent, DialogComponent} from '@progress/kendo-angular-dialog';
+import {HttpErrorResponse} from '@angular/common/http';
+import {GeneralLedgerService} from '../../services/general-ledger.service';
 
 @Component({
   selector: 'app-journal-settings',
@@ -37,10 +39,16 @@ export class JournalSettingsComponent implements OnInit {
   errorMessage: string | null = null;
   journalSettingTypes: any[] = []; // Stocker les types récupérés depuis l'API
   showDialog = false;  // Variable pour afficher le popup
+  generalLedgers: any[] = []; // ✅ Liste des comptes généraux
+  defaultGeneralLedger = {displayText: 'Select a General ledger'};
 
 
-  constructor(private fb: FormBuilder  ,  private journalSettingService: JournalSettingService
-  ) {}
+  constructor(
+    private fb: FormBuilder  ,
+    private journalSettingService: JournalSettingService,
+    private generalLedgerService: GeneralLedgerService
+
+) {}
 
   ngOnInit(): void {
     const savedData = this.journalSettingService.getFormData();
@@ -54,8 +62,10 @@ export class JournalSettingsComponent implements OnInit {
       JLS_TerminationDate: [null, Validators.required],
       JLS_ZeroRateForeignTaxCode: [null],
       JLS_EntrySystem:  [null, Validators.required],
-
+      JLS_GeneralLedger_Id: [null, Validators.required],
     });
+    this.loadGeneralLedgers();
+
     if (savedData) {
       this.journalSettingForm.patchValue(savedData);
       this.journalSettingForm.disable(); // Désactiver tous les champs après chargement des données
@@ -85,6 +95,24 @@ export class JournalSettingsComponent implements OnInit {
       error: (error) => {
         console.error('Erreur lors de la récupération des types:', error);
         this.errorMessage = 'Impossible de récupérer les types de journal disponibles.';
+      }
+    });
+  }
+  private loadGeneralLedgers(): void {
+    this.generalLedgerService.getActiveGeneralLedgers().subscribe({
+      next: (data) => {
+        this.generalLedgers = data.map(generalLedger => ({
+          gL_Id: generalLedger.gL_Id, // Ajout de l'ID
+          gL_ExactGeneralLedger: generalLedger.gL_ExactGeneralLedger,
+          gL_Description: generalLedger.gL_Description ,//
+          displayText: `${generalLedger.gL_Description} - ${generalLedger.gL_ExactGeneralLedger}` // 🔥 Formatage
+
+        }));
+
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Erreur lors du chargement des General Ledgers', error);
+        this.generalLedgers = [];
       }
     });
   }

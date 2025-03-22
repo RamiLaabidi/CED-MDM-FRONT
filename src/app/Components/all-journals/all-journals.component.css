@@ -7,77 +7,37 @@ body {
 
 /* Conteneur principal */
 .container {
-  max-width: 1100px;
-  padding: 20px;
-  margin: 40px auto;
+  max-width: 1400px;
+  margin: 100px auto;
   background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  min-height: 600px; /* Hauteur minimale augmentée */
+
 }
 
-/* En-tête */
-.general-info {
-  background: linear-gradient(135deg, rgb(134, 188, 51), rgb(146, 177, 100));
-  padding: 20px;
-  border-radius: 8px;
-  color: #fff;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.general-info h3 {
+.general-info h2 {
   font-size: 22px;
   font-weight: 600;
 }
 
-/* Barre d'outils */
-.toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.search-input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.3s ease-in-out;
-}
-
-.search-input:focus {
-  border-color: #86bc33;
-  box-shadow: 0px 0px 8px rgba(88, 155, 211, 0.99);
-}
-
-.refresh-btn {
-  background-color: rgb(134, 188, 51) !important;
-  color: white;
+button[kendoButton] {
+  background-color: #fd8a8a;
+  color: #fff;
+  padding: 8px 50px;
+  border-radius: 1px;
+  font-size: 1rem;
+  font-weight: 500;
   border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s ease-in-out;
+  flex: 1;
+  max-width: 120px;
+  margin: 0 10px;
 }
 
-.refresh-btn:hover {
-  background-color: rgb(157, 191, 107) !important;
+button[kendoButton]:disabled {
+  background-color: #fd8a8a;
+  cursor: not-allowed;
 }
 
-/* Tableau */
-kendo-grid {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
-}
-
-.modern-grid {
-  border-radius: 12px;
-}
 
 /* Responsive */
 @media screen and (max-width: 768px) {
@@ -92,4 +52,31 @@ kendo-grid {
 }
 
 
+/* Alignement Journals à gauche et Add à droite */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+
+
+/* Icône de modification */
+.edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+.tab {
+  overflow: hidden; /* Empêcher le débordement */
+}
+
+/* Ajuster la largeur et la hauteur du kendo-grid */
+kendo-grid {
+  width: 100%; /* Largeur du tableau */
+  height: 700px; /* Hauteur du tableau */
+}
 

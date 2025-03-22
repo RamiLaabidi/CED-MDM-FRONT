@@ -18,7 +18,18 @@
         formControlName="JLS_JournalSettingType_Id">
       </kendo-dropdownlist>
     </div>
-
+    <!-- General Ledger -->
+    <div class="form-group">
+      <label class="label-required">General Ledger</label>
+      <kendo-dropdownlist
+        [data]="generalLedgers"
+        [textField]="'displayText'"
+        [valueField]="'gL_Id'"
+        [valuePrimitive]="true"
+        formControlName="JLS_GeneralLedger_Id"
+        [defaultItem]="defaultGeneralLedger">
+      </kendo-dropdownlist>
+    </div>
 
     <!-- Effective Date -->
     <div class="form-group">

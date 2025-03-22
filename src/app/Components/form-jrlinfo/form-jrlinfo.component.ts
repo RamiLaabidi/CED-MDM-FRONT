@@ -90,17 +90,18 @@ export class FormJRLInfoComponent implements OnInit {
       const journalType = this.journalForm.get('JRL_JournalType_Id')?.value; // Récupère le type de journal
 
       if (legalEntityId) {
-        this.loadGeneralLedgers(legalEntityId);
+      //  this.loadGeneralLedgers(legalEntityId);
 
         // 🔹 Charge l'IBAN seulement si le type de journal est "Bank"
         if (journalType === 'Bank') {
           this.loadBankAccount(legalEntityId);
         }
       } else {
-        this.generalLedgers = []; // Réinitialisation si aucun Legal Entity sélectionné
+        //this.generalLedgers = []; // Réinitialisation si aucun Legal Entity sélectionné
         this.journalForm.patchValue({ JRL_BankAccount_Id: '' }); // Réinitialise
       }
     });
+    this.loadGeneralLedgers();
     // Charger toutes les devises
     this.currencyServiceService.getActiveCurrencyIds().subscribe({
       next: (data) => {
@@ -181,8 +182,8 @@ export class FormJRLInfoComponent implements OnInit {
   }
 
   // ✅ Charge les comptes généraux selon l'ID de l'entité légale
-  private loadGeneralLedgers(legalEntityId: string): void {
-    this.generalLedgerService.getActiveGeneralLedgers(legalEntityId).subscribe({
+  private loadGeneralLedgers(): void {
+    this.generalLedgerService.getActiveGeneralLedgers().subscribe({
       next: (data) => {
         this.generalLedgers = data.map(generalLedger => ({
           gL_Id: generalLedger.gL_Id, // Ajout de l'ID
