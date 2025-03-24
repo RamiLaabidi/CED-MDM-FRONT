@@ -5,7 +5,6 @@ import { GeneralLedger } from '../../Entities/general-ledger/general-ledger.modu
 import { GeneralLedgerService } from '../../services/general-ledger.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { SwitchComponent, TextAreaComponent, TextBoxComponent } from '@progress/kendo-angular-inputs';
-import { DatePickerComponent } from '@progress/kendo-angular-dateinputs';
 import { ButtonComponent } from '@progress/kendo-angular-buttons';
 
 @Component({
@@ -17,7 +16,6 @@ import { ButtonComponent } from '@progress/kendo-angular-buttons';
     DatePipe,
     SwitchComponent,
     TextAreaComponent,
-    //DatePickerComponent,
     ButtonComponent,
     CommonModule
   ],
@@ -60,7 +58,7 @@ export class UpdateGeneralLedgerComponent implements OnInit {
     this.generalLedgerService.getById(this.glId).subscribe({
       next: (data) => {
         this.generalLedgerInfo = data;
-        this.initForm(); // ✅ Met à jour le formulaire avec les données reçues
+        this.initForm();
       },
       error: (err) => {
         console.error('Erreur lors du chargement du General Ledger', err);
@@ -85,7 +83,7 @@ export class UpdateGeneralLedgerComponent implements OnInit {
       gL_LastModifiedDate: [this.generalLedgerInfo.gL_LastModifiedDate ? new Date(this.generalLedgerInfo.gL_LastModifiedDate) : null]
     });
 
-    this.generalLedgerForm.disable(); // ✅ Tous les champs désactivés au début
+    this.generalLedgerForm.disable();
   }
 
   enableEditing(): void {
@@ -103,7 +101,7 @@ export class UpdateGeneralLedgerComponent implements OnInit {
       const updatedData = {
         ...this.generalLedgerInfo,
         ...this.generalLedgerForm.value,
-        gL_LastModifiedDate: new Date() // Met automatiquement la date actuelle
+        gL_LastModifiedDate: new Date()
 
       };
 
@@ -111,10 +109,9 @@ export class UpdateGeneralLedgerComponent implements OnInit {
         next: () => {
           this.isSaved = true;
           this.isEditing = false;
-          this.generalLedgerForm.disable(); // ✅ Désactiver après mise à jour
+          this.generalLedgerForm.disable();
           console.log("General Ledger mis à jour avec succès !");
 
-          // ✅ Charger les nouvelles données après mise à jour réussie
           this.loadGeneralLedger();
         },
         error: (err) => {
@@ -124,5 +121,4 @@ export class UpdateGeneralLedgerComponent implements OnInit {
       });
     }
   }
-
 }

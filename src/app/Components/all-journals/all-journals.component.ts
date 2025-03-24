@@ -45,14 +45,10 @@ export class AllJournalsComponent implements OnInit {
 
   get filteredJournals(): Journal[] {
     return this.journals.filter((journal) =>
-      journal.JRL_Id?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      journal.jrL_JournalType_Id?.toLowerCase().includes(this.searchTerm.toLowerCase())
+      journal.jrL_Id?.includes(this.searchTerm)
     );
   }
-  /*onRowSelect(event: any): void {
-    const selectedJournal: Journal = event.selectedRows[0].dataItem;
-      this.router.navigate(['/journals', selectedJournal.JRL_Id]);
-  }*/
+
   navigateToEdit(id: number): void {
     this.router.navigate(['/journals', id]);
   }

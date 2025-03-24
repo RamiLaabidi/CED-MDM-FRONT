@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {GeneralLedger} from '../../Entities/general-ledger/general-ledger.module';
 import {GeneralLedgerService} from '../../services/general-ledger.service';
-import {ColumnComponent, GridComponent} from '@progress/kendo-angular-grid';
-import {ButtonComponent} from '@progress/kendo-angular-buttons';
+import {CellTemplateDirective, ColumnComponent, GridComponent} from '@progress/kendo-angular-grid';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+import {SwitchComponent} from '@progress/kendo-angular-inputs';
+import {ButtonComponent} from '@progress/kendo-angular-buttons';
 
 
 @Component({
@@ -13,8 +14,10 @@ import {Router} from '@angular/router';
   imports: [
     GridComponent,
     ColumnComponent,
-    ButtonComponent,
     FormsModule,
+    CellTemplateDirective,
+    SwitchComponent,
+    ButtonComponent,
   ],
   templateUrl: './all-general-ledgers.component.html',
   styleUrl: './all-general-ledgers.component.css'
@@ -47,9 +50,10 @@ export class AllGeneralLedgersComponent implements OnInit {
       ledger.gL_Description?.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
-  onRowSelect(event: any): void {
-    const selectedLedger: GeneralLedger = event.selectedRows[0].dataItem;
-    this.router.navigate(['/general-ledgers', selectedLedger.gL_Id]);
+  navigateToEdit(id: number): void {
+    this.router.navigate(['/general-ledgers', id]);
   }
-
+  addGeneralLedger(): void {
+    this.router.navigate(['/GL']);
+  }
 }

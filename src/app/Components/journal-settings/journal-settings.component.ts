@@ -1,15 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {FormBuilder, FormArray, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
-import { JournalSettingService } from '../../services/journal-setting.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import {JournalSettingService } from '../../services/journal-setting.service';
+import {debounceTime, distinctUntilChanged } from 'rxjs';
 import {TextBoxComponent} from '@progress/kendo-angular-inputs';
 import {DropDownListComponent} from '@progress/kendo-angular-dropdowns';
 import {DatePickerComponent} from '@progress/kendo-angular-dateinputs';
 import {ButtonComponent} from '@progress/kendo-angular-buttons';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgIf} from '@angular/common';
 import {DialogActionsComponent, DialogComponent} from '@progress/kendo-angular-dialog';
 import {HttpErrorResponse} from '@angular/common/http';
 import {GeneralLedgerService} from '../../services/general-ledger.service';
+import {LabelComponent} from '@progress/kendo-angular-label';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-journal-settings',
@@ -23,30 +25,34 @@ import {GeneralLedgerService} from '../../services/general-ledger.service';
     ButtonComponent,
     NgIf,
     DialogActionsComponent,
-    DialogComponent
+    DialogComponent,
+    LabelComponent
   ],
   styleUrl: './journal-settings.component.css'
 })
 export class JournalSettingsComponent implements OnInit {
   @Input() journalData!: FormGroup;
-  @Input() jrlId!: string;  // Ajout de l'input pour recevoir l'ID du journal
-  @Input() legalEntityId!: string; // 🔹 Réception de JRL_LegalEntity_Id
-  @Output() next = new EventEmitter<FormGroup>(); // Ajoute cette ligne
-
+  @Input() jrlId!: string;
+  @Input() legalEntityId!: string;
+  @Output() next = new EventEmitter<FormGroup>();
   @Output() previous = new EventEmitter<void>();
   @Output() submit = new EventEmitter<FormGroup>();
+
+
+
   journalSettingForm!: FormGroup;
   errorMessage: string | null = null;
-  journalSettingTypes: any[] = []; // Stocker les types récupérés depuis l'API
-  showDialog = false;  // Variable pour afficher le popup
-  generalLedgers: any[] = []; // ✅ Liste des comptes généraux
+  journalSettingTypes: any[] = [];
+  showDialog = false;
+  generalLedgers: any[] = [];
   defaultGeneralLedger = {displayText: 'Select a General ledger'};
 
 
   constructor(
     private fb: FormBuilder  ,
     private journalSettingService: JournalSettingService,
-    private generalLedgerService: GeneralLedgerService
+    private generalLedgerService: GeneralLedgerService,
+    private router: Router
 
 ) {}
 
@@ -54,15 +60,14 @@ export class JournalSettingsComponent implements OnInit {
     const savedData = this.journalSettingService.getFormData();
 
     this.journalSettingForm = this.fb.group({
-      //JLS_Id:[''],
-      JLS_LegalEntity_Id: [this.legalEntityId, Validators.required],
-      JLS_JournalSettingType_Id: [null, Validators.required],
-      JLS_Journal_Id: [this.jrlId, Validators.required],
-      JLS_EffectiveDate: [new Date(), Validators.required],
-      JLS_TerminationDate: [null, Validators.required],
-      JLS_ZeroRateForeignTaxCode: [null],
-      JLS_EntrySystem:  [null, Validators.required],
-      JLS_GeneralLedger_Id: [null, Validators.required],
+      jlS_LegalEntity_Id: [this.legalEntityId, Validators.required],
+      jlS_JournalSettingType_Id: [null, Validators.required],
+      jlS_Journal_Id: [this.jrlId, Validators.required],
+      jlS_EffectiveDate: [new Date(), Validators.required],
+      jlS_TerminationDate: [null],
+      jlS_ZeroRateForeignTaxCode: [null],
+      jlS_EntrySystem:  [null, Validators.required],
+      jlS_GeneralLedger_Id: [null, Validators.required],
     });
     this.loadGeneralLedgers();
 
@@ -71,8 +76,8 @@ export class JournalSettingsComponent implements OnInit {
       this.journalSettingForm.disable(); // Désactiver tous les champs après chargement des données
 
     }
-    // Détecter les changements sur JLS_EntrySystem avec un délai pour éviter les appels inutiles
-    this.journalSettingForm.get('JLS_EntrySystem')?.valueChanges
+    // Détecter les changements sur  jlS_EntrySystem avec un délai pour éviter les appels inutiles
+    this.journalSettingForm.get('jlS_EntrySystem')?.valueChanges
       .pipe(
         debounceTime(500), // Attendre 500ms après la dernière frappe
         distinctUntilChanged() // Éviter les appels répétés si la valeur n'a pas changé
@@ -89,7 +94,7 @@ export class JournalSettingsComponent implements OnInit {
       next: (response) => {
         this.journalSettingTypes = response || [];
         if (this.journalSettingTypes.length > 0) {
-          this.journalSettingForm.patchValue({ JLS_JournalSettingType_Id: this.journalSettingTypes[0].id });
+          this.journalSettingForm.patchValue({jlS_JournalSettingType_Id: this.journalSettingTypes[0].id});
         }
       },
       error: (error) => {
@@ -149,23 +154,23 @@ export class JournalSettingsComponent implements OnInit {
   }
 
   onDialogClose(choice: boolean) {
-    this.showDialog = false;  // Fermer le popup
+    this.showDialog = false;
 
     if (choice) {
-      // L'utilisateur veut ajouter un autre enregistrement -> Réinitialisation manuelle
       this.journalSettingForm.reset({
-        JLS_EffectiveDate: new Date(), // Remettre Effective Date à aujourd'hui
-        JLS_LegalEntity_Id: this.legalEntityId, // Garder les valeurs d'origine
-        JLS_Journal_Id: this.jrlId
+         jlS_EffectiveDate: new Date(),
+         jlS_LegalEntity_Id: this.legalEntityId,
+         jlS_Journal_Id: this.jrlId
       });
 
-      this.journalSettingForm.enable(); // Réactiver les champs
+      this.journalSettingForm.enable();
     } else {
-      // Aller au formulaire suivant
       this.next.emit(this.journalSettingForm);
     }
   }
 
-
+  navigateToJournalSettings() {
+    this.router.navigate(['/journalSettings']);
+  }
 
 }

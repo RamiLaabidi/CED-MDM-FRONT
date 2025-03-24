@@ -22,12 +22,24 @@
   <form [formGroup]="generalLedgerForm" (ngSubmit)="submitForm()" class="k-form">
     <div class="form-container">
       <div class="form-group">
-        <label >Exact Administration Ref ° :</label>
-        <kendo-textbox formControlName="gL_ExactAdministration"></kendo-textbox>
+        <label class="label-required">Exact Administration Ref ° :</label>
+        <kendo-textbox formControlName="gL_ExactAdministration" placeholder="Enter Exact Administration"></kendo-textbox>
+        <div
+          class="error-message"
+          *ngIf="generalLedgerForm.get('gL_ExactAdministration')?.errors?.['pattern']"
+        >
+          This field must be numeric !
+        </div>
       </div>
       <div class="form-group">
-        <label >Exact General Ledger Ref ° :</label>
-        <kendo-textbox formControlName="gL_ExactGeneralLedger"></kendo-textbox>
+        <label class="label-required">Exact General Ledger Ref ° :</label>
+        <kendo-textbox formControlName="gL_ExactGeneralLedger" placeholder="Enter Exact General Ledger"></kendo-textbox>
+        <div
+          class="error-message"
+          *ngIf="generalLedgerForm.get('gL_ExactGeneralLedger')?.errors?.['pattern']"
+        >
+          This field must be numeric !
+        </div>
       </div>
       <div class="form-group full-width">
         <label>Account Description :</label>
@@ -35,7 +47,7 @@
       </div>
       <div class="form-group">
         <label>Account Status :</label>
-        <kendo-switch formControlName="gL_Inactive"></kendo-switch>
+        <kendo-switch formControlName="gL_Inactive" [offLabel]="'ON'" [onLabel]="'OFF'"></kendo-switch>
       </div>
 
       <div class="form-group">

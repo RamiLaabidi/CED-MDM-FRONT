@@ -1,16 +1,16 @@
 <form [formGroup]="journalForm" (ngSubmit)="submitForm()" class="k-form">
   <div class="form-container">
 
-    <!-- JRL Abbreviation -->
+    <!-- jrL Abbreviation -->
     <div class="form-group">
       <label class="label-required">Journal Abbreviation</label>
-      <kendo-textbox formControlName="JRL_Abbreviation" placeholder="Enter abbreviation"></kendo-textbox>
+      <kendo-textbox formControlName="jrL_Abbreviation" placeholder="Enter abbreviation"></kendo-textbox>
     </div>
 
-    <!-- JRL Description -->
+    <!-- jrL Description -->
     <div class="form-group full-width">
       <label>Journal Description</label>
-      <kendo-textarea formControlName="JRL_Description" [maxlength]="30" placeholder="Enter description"></kendo-textarea>
+      <kendo-textarea formControlName="jrL_Description" [maxlength]="30" placeholder="Enter description"></kendo-textarea>
     </div>
     <!-- Journal Type -->
     <div class="form-group">
@@ -20,7 +20,7 @@
         [textField]="'jrT_Id'"
         [valueField]="'jrT_Id'"
         [valuePrimitive]="true"
-        formControlName="JRL_JournalType_Id"
+        formControlName="jrL_JournalType_Id"
         [defaultItem]="defaultJournalType">
         >
       </kendo-dropdownlist>
@@ -33,7 +33,7 @@
         [textField]="'nomComplet'"
         [valueField]="'lE_Id'"
         [valuePrimitive]="true"
-        formControlName="JRL_LegalEntity_Id"
+        formControlName="jrL_LegalEntity_Id"
         [defaultItem]="defaultLegalEntity" [disabled]="isSaved" >
       </kendo-dropdownlist>
 
@@ -48,7 +48,7 @@
         [textField]="'name'"
         [valueField]="'CRR_Id'"
         [valuePrimitive]="true"
-        formControlName="JRL_CurrencyCode">
+        formControlName="jrL_CurrencyCode">
       </kendo-dropdownlist>
     </div>
 
@@ -60,7 +60,7 @@
         [textField]="'displayText'"
         [valueField]="'gL_Id'"
         [valuePrimitive]="true"
-        formControlName="JRL_GeneralLedger_Id"
+        formControlName="jrL_GeneralLedger_Id"
         [defaultItem]="defaultGeneralLedger">
       </kendo-dropdownlist>
     </div>
@@ -68,19 +68,25 @@
     <!-- BANCACCOUNT -->
     <div class="form-group">
       <label>Bank Account</label>
-      <kendo-textbox formControlName="JRL_BankAccount_Id" placeholder="Enter Bank Account" [disabled]="isSaved"></kendo-textbox>
+      <kendo-textbox formControlName="jrL_BankAccount_Id" placeholder="Enter Bank Account" ></kendo-textbox>
     </div>
 
     <!-- Exact Administration -->
     <div class="form-group">
       <label class="label-required">Exact Administration</label>
-      <kendo-textbox formControlName="JRL_ExactAdministration" placeholder="Exact Administration" [readonly]="true"></kendo-textbox>
+      <kendo-textbox formControlName="jrL_ExactAdministration" placeholder="Exact Administration" [readonly]="true"></kendo-textbox>
     </div>
 
     <!-- Exact Journal -->
     <div class="form-group">
       <label class="label-required">Exact Journal</label>
-      <kendo-textbox formControlName="JRL_ExactJournal" placeholder="Exact Journal"></kendo-textbox>
+      <kendo-textbox formControlName="jrL_ExactJournal" placeholder="Exact Journal"></kendo-textbox>
+      <div
+        class="error-message"
+        *ngIf="journalForm.get('jrL_ExactJournal')?.errors?.['pattern']"
+      >
+        This field must be numeric !
+      </div>
     </div>
 
 
@@ -88,7 +94,7 @@
     <!-- Inactive Switch -->
     <div class="form-group d-flex align-items-center">
       <label>Journal Status</label>
-      <kendo-switch formControlName="JRL_Inactive" class="custom-switch"
+      <kendo-switch formControlName="jrL_Inactive" class="custom-switch"
                     [onLabel]="'ON'" [offLabel]="'OFF'"></kendo-switch>
     </div>
 

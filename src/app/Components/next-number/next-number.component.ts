@@ -32,6 +32,7 @@ export class NextNumberComponent implements OnInit{
   @Output() previous = new EventEmitter<void>();
   @Output() submit = new EventEmitter<FormGroup>();
   formSaved: boolean = false; // Initialement désactivé
+  errorMessage = '';
 
 
 
@@ -106,6 +107,8 @@ export class NextNumberComponent implements OnInit{
   // Soumission du formulaire
   submitForm() {
     if (this.nextNumberForm.valid) {
+      this.errorMessage = '';
+
       const formData: Partial<NextNumber> = { ...this.nextNumberForm.getRawValue() };
 
       // Suppression de NEX_Number pour permettre sa génération côté backend
@@ -115,7 +118,7 @@ export class NextNumberComponent implements OnInit{
 
       this.nextNumberService.addNextNumber(formData as NextNumber).subscribe({
         next: (response) => {
-          console.log('NextNumber ajouté avec succès:', response);
+          console.log('NextNumber successfully added.', response);
 
           // Mise à jour du champ NEX_Number avec la valeur générée côté backend
           if (response.neX_Number !== undefined) {
@@ -125,7 +128,9 @@ export class NextNumberComponent implements OnInit{
 
         },
         error: (err) => {
-          console.error("Erreur lors de l'ajout de NextNumber:", err);
+          console.error("Range reached, no new entries are possible. Please specify another range.", err);
+          this.errorMessage = 'Range reached, no new entries are possible. Please specify another range.';
+
         }
       });
       this.formSaved = true;  // Active le bouton Add NEX après la sauvegarde
@@ -135,9 +140,9 @@ export class NextNumberComponent implements OnInit{
     }
   }
   resetForm() {
-    this.nextNumberForm.reset();  // Réinitialise le formulaire
-    this.initForm(); // Réinitialise les valeurs par défaut
-    this.nextNumberForm.enable(); // Réactive les champs
+    this.nextNumberForm.reset();
+    this.initForm();
+    this.nextNumberForm.enable();
     this.formSaved = false; // Active "Save" et désactive "Add NEX"
 
   }

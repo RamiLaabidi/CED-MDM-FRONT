@@ -71,6 +71,10 @@
 
   </div>
 
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 
   <!-- Description -->
   <div class="form-group">

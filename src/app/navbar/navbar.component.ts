@@ -13,5 +13,8 @@ import {NgOptimizedImage} from '@angular/common';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
+  toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks?.classList.toggle('active');
+  }
 }

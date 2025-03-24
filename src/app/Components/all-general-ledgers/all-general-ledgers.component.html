@@ -1,18 +1,20 @@
 <div class="container">
   <div class="general-info">
-    <h3> All General Ledgers</h3>
-  </div>
+    <div class="header">
+    <h2>General Ledgers</h2>
+      <button kendoButton (click)="addGeneralLedger()" class="add-btn">Add Ledger</button>
 
-  <div class="toolbar">
-    <button kendoButton (click)="loadGeneralLedgers()" class="refresh-btn">
-      Refresh
-    </button>
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      placeholder="Search by ID or Description"
-      class="search-input"
-    />
+    </div>
+
+    <!-- Champ de recherche -->
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search for General ledger..."
+        [(ngModel)]="searchTerm"
+        class="search-input"
+      />
+    </div>
   </div>
 
   <div class="tab">
@@ -23,12 +25,34 @@
       [sortable]="true"
       [pageable]="true"
       [selectable]="true"
-      (selectionChange)="onRowSelect($event)"
       class="shadow-sm rounded modern-grid"
     >
-      <kendo-grid-column field="gL_Id" title="General Ledger ID " [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
-      <kendo-grid-column field="gL_Description" title=" Account Description" [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
-      <kendo-grid-column field="gL_Inactive" title=" General Ledger Status" [width]="100" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="gL_Id" title="General Ledger ID" [width]="150" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="gL_Description" title=" Account Description" [width]="100" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="gL_Inactive" title="Status" [width]="100" [headerStyle]="{'font-weight': 'bold'}">
+        <ng-template kendoGridCellTemplate let-dataItem><kendo-switch [checked]="dataItem.gL_Inactive" [disabled]="true"></kendo-switch>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="gL_CreatedDate" title="Created Date" [width]="130" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="gL_LastModifiedDate" title="Last Modified Date" [width]="130" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="gL_IsPrimaryProcess" title="IsPrimaryProcess" [width]="100" [headerStyle]="{'font-weight': 'bold'}">
+        <ng-template kendoGridCellTemplate let-dataItem><kendo-switch [checked]="dataItem.gL_IsPrimaryProcess" [disabled]="true"></kendo-switch>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="gL_IsProfitLossAccount" title="IsProfitLossAccount" [width]="100" [headerStyle]="{'font-weight': 'bold'}">
+        <ng-template kendoGridCellTemplate let-dataItem><kendo-switch [checked]="dataItem.gL_IsProfitLossAccount" [disabled]="true"></kendo-switch>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="gL_IsSuspenseAccount" title="IsSuspenseAccount" [width]="100" [headerStyle]="{'font-weight': 'bold'}">
+        <ng-template kendoGridCellTemplate let-dataItem><kendo-switch [checked]="dataItem.gL_IsSuspenseAccount" [disabled]="true"></kendo-switch>
+        </ng-template></kendo-grid-column>
+      <kendo-grid-column title="Edit" [width]="50" [headerStyle]="{'font-weight': 'bold'}"><ng-template kendoGridCellTemplate let-dataItem>
+          <button class="k-icon k-i-edit" style="color: black;" (click)="navigateToEdit(dataItem.gL_Id)">
+            🖊️
+          </button>
+
+        </ng-template>
+      </kendo-grid-column>
 
     </kendo-grid>
   </div>

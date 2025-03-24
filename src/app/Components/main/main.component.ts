@@ -33,7 +33,7 @@ export class MainComponent implements OnInit {
       activeDate: [''],
       inactiveDate: [''],
       jrlId: [''],
-      JRL_LegalEntity_Id: [''],
+      jrL_LegalEntity_Id: [''],
 
     });
   }
@@ -63,22 +63,13 @@ export class MainComponent implements OnInit {
     const formattedDate = this.formatDate(today);
 
     this.journalForm.patchValue({
-      journalAbbreviation: journal.JRL_Abbreviation || '',
-      jrlId: journal.JRL_Id, // Vérifie que cette ligne est bien exécutée
+      journalAbbreviation: journal.jrL_Abbreviation || '',
+      jrlId: journal.jrL_Id, // Vérifie que cette ligne est bien exécutée
       activeDate: formattedDate,
       inactiveDate: formattedDate
     });
   }
 
-  // Fonction pour soumettre le formulaire
-  submitForm(form: FormGroup) {
-    this.settingsData = form;
-    console.log("Journal + Settings enregistrés :", {
-      ...this.journalForm.value,
-      ...this.settingsData.value
-    });
-    alert('Journal et paramètres enregistrés avec succès ! 🎉');
-  }
   submitNextNumber(form: FormGroup) {
     this.nextNumberData = form;
     console.log("Journal + Settings + NextNumber enregistrés :", {
@@ -86,7 +77,6 @@ export class MainComponent implements OnInit {
       ...this.settingsData.value,
       ...this.nextNumberData.value
     });
-    alert('Toutes les données ont été enregistrées avec succès ! 🎉');
   }
 
   // Fonction pour formater la date

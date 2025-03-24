@@ -4,7 +4,7 @@
     <!-- Entry System -->
     <div class="form-group">
       <label class="label-required">Entry System</label>
-      <kendo-textbox formControlName="JLS_EntrySystem" placeholder="Enter Entry System Code"></kendo-textbox>
+      <kendo-textbox formControlName="jlS_EntrySystem" placeholder="Enter Entry System Code"></kendo-textbox>
     </div>
 
     <!-- Journal Setting Type -->
@@ -15,9 +15,10 @@
         [textField]="'description'"
         [valueField]="'id'"
         [valuePrimitive]="true"
-        formControlName="JLS_JournalSettingType_Id">
+        formControlName="jlS_JournalSettingType_Id">
       </kendo-dropdownlist>
     </div>
+
     <!-- General Ledger -->
     <div class="form-group">
       <label class="label-required">General Ledger</label>
@@ -26,7 +27,7 @@
         [textField]="'displayText'"
         [valueField]="'gL_Id'"
         [valuePrimitive]="true"
-        formControlName="JLS_GeneralLedger_Id"
+        formControlName="jlS_GeneralLedger_Id"
         [defaultItem]="defaultGeneralLedger">
       </kendo-dropdownlist>
     </div>
@@ -34,42 +35,40 @@
     <!-- Effective Date -->
     <div class="form-group">
       <label class="label-required">Effective Date</label>
-      <kendo-datepicker formControlName="JLS_EffectiveDate" [readonly]="true"></kendo-datepicker>
+      <kendo-datepicker formControlName="jlS_EffectiveDate" [readonly]="true"></kendo-datepicker>
     </div>
 
     <!-- Termination Date -->
     <div class="form-group">
-      <label class="label-required">Termination Date</label>
-      <kendo-datepicker formControlName="JLS_TerminationDate"></kendo-datepicker>
+      <label>Termination Date</label>
+      <kendo-datepicker formControlName="jlS_TerminationDate"></kendo-datepicker>
     </div>
 
-
-    <!-- Zero Rate Foreign Tax Code -->
+    <!-- Zero Rate Foreign Tax Code & Add Button -->
     <div class="form-group">
       <label>Zero Rate Foreign Tax Code</label>
-      <kendo-textbox formControlName="JLS_ZeroRateForeignTaxCode" placeholder="Enter Tax Code"></kendo-textbox>
+      <kendo-textbox formControlName="jlS_ZeroRateForeignTaxCode" placeholder="Enter Tax Code"></kendo-textbox>
     </div>
+
   </div>
-
-
+  <kendo-label type="button" (click)="navigateToJournalSettings()" class="btn-link"><span class="k-icon k-i-eye"></span>Check Journal Settings</kendo-label>
 
   <!-- Error Message -->
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
 
+  <!-- Confirmation Dialog -->
   <kendo-dialog *ngIf="showDialog" (close)="onDialogClose(false)" class="custom-dialog">
     <div class="dialog-header">
       <div class="dialog-title">Confirmation</div>
     </div>
-    <p class="dialog-message">Do you want to add another journal setting to this journal ?</p>
+    <p class="dialog-message">Would you like to add another setting to this journal ?</p>
     <kendo-dialog-actions class="dialog-actions">
       <button kendoButton (click)="onDialogClose(true)" [primary]="true" class="btn-yes">YES</button>
       <button kendoButton (click)="onDialogClose(false)" class="btn-no">NO</button>
     </kendo-dialog-actions>
   </kendo-dialog>
-
-
 
   <!-- Navigation Buttons -->
   <div class="submit-container">

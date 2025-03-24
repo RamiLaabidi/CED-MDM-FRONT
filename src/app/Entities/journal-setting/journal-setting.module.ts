@@ -1,15 +1,15 @@
 export interface JournalSetting {
-  JLS_Id?: string; // Guid
-  JLS_LegalEntity_Id?: string; // Guid
-  JLS_JournalSettingType_Id?: string;
-  JLS_Journal_Id?: string;
-  JLS_GeneralLedger_Id?: string;
-  JLS_EffectiveDate: Date;
-  JLS_TerminationDate?: Date;
-  JLS_CreatedDate: Date;
-  JLS_LastModifiedDate: Date;
-  JLS_ZeroRateForeignTaxCode?: string;
-  JLS_EntrySystem?:string;
+  jlS_Id?: string;
+  jlS_LegalEntity_Id?: string;
+  jlS_JournalSettingType_Id?: string;
+  jlS_Journal_Id?: string;
+  jlS_GeneralLedger_Id?: string;
+  jlS_EffectiveDate: Date;
+  jlS_TerminationDate: Date;
+  jlS_CreatedDate: Date;
+  jlS_LastModifiedDate: Date;
+  jlS_ZeroRateForeignTaxCode?: string;
+  jlS_EntrySystem?:string;
 
 }
 

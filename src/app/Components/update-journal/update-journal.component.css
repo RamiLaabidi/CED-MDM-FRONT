@@ -78,7 +78,7 @@ button[kendoButton]:disabled {
 
 .submit-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 30px;
   width: 100%;
 }
@@ -101,4 +101,66 @@ button[kendoButton]:disabled {
   .form-container {
     grid-template-columns: 1fr;
   }
+}
+
+
+.general-info {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 430;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.info-container {
+  display: flex;
+  flex-wrap: wrap; /* Permet aux éléments de se réorganiser sur des écrans plus petits */
+  gap: 20px;
+}
+
+.info-item {
+  text-align: center; /* Centre le texte */
+
+  flex: 1;
+  min-width: 180px;
+  font-size: 0.93rem;
+  color: #000000;
+}
+
+.info-label {
+  text-align: center; /* Centre le texte */
+
+  font-weight: 150;
+  color: rgba(51, 51, 51, 0.56); /* Bleu pour les labels */
+  font-size: 0.90rem;
+}
+
+strong {
+  font-size: 1rem;
+  color: #555; /* Une couleur plus foncée pour le texte mis en valeur */
+}
+
+@media screen and (max-width: 768px) {
+  .info-container {
+    flex-direction: column; /* Passage en colonne pour les petits écrans */
+  }
+}
+
+body {
+  background-color: #0080ff; /* Choisis une couleur douce */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.container {
+  max-width: 1400px;
+  padding: 30px;
+  margin-top: 30px;
 }

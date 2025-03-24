@@ -5,6 +5,10 @@ import {AllGeneralLedgersComponent} from './Components/all-general-ledgers/all-g
 import {UpdateGeneralLedgerComponent} from './Components/update-general-ledger/update-general-ledger.component';
 import {UpdateJournalComponent} from './Components/update-journal/update-journal.component';
 import {AllJournalsComponent} from './Components/all-journals/all-journals.component';
+import {ParentUpdateJRLComponent} from './Components/parent-update-jrl/parent-update-jrl.component';
+import {NavbarComponent} from './navbar/navbar.component';
+import {AllJournalSettingsComponent} from './Components/all-journal-settings/all-journal-settings.component';
+import {JournalSettingUpdateComponent} from './Components/journal-setting-update/journal-setting-update.component';
 
 
 export const routes: Routes = [
@@ -36,6 +40,12 @@ export const routes: Routes = [
   },
   { path: 'journals/:id',
     component: UpdateJournalComponent
+  },
+  { path: 'journalSettings',
+    component: AllJournalSettingsComponent
+  },
+  { path: 'journal-setting/:id',
+    component: JournalSettingUpdateComponent
   },
 
 

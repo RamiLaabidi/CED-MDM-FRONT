@@ -9,7 +9,7 @@
     <app-journal-settings
       [journalData]="journalForm.value"
       [jrlId]="journalForm.get('jrlId')?.value"
-      [legalEntityId]="journalForm.value.JRL_LegalEntity_Id"
+      [legalEntityId]="journalForm.value.jrL_LegalEntity_Id"
       (previous)="previousStep()"
       (next)="nextStep($event)">
     </app-journal-settings>

@@ -31,27 +31,27 @@ import {CurrencyServiceService} from '../../services/currency-service.service';
 })
 export class FormJRLInfoComponent implements OnInit {
   @Output() journalCreated = new EventEmitter<Journal>();
-  @Output() next = new EventEmitter<FormGroup>(); // Événement pour passer à l'étape suivante
-  @Output() legalEntityId = new EventEmitter<string>(); // 🔹 Émetteur pour JRL_LegalEntity_Id
+  @Output() next = new EventEmitter<FormGroup>();
+  @Output() legalEntityId = new EventEmitter<string>();
 
   journalForm!: FormGroup;
   isSubmitting = false;
   errorMessage = '';
-  legalEntities: any[] = []; // Stores legal entities
+  legalEntities: any[] = [];
   journalTypes: any[] = [];
-  generalLedgers: any[] = []; // ✅ Liste des comptes généraux
-  currencies: any[] = []; // Liste des devises disponibles
+  generalLedgers: any[] = [];
+  currencies: any[] = [];
 
-  defaultJournalType = {jrT_Id: 'Select a journal type'};
-  defaultLegalEntity = {nomComplet: 'Select a legal entity'};
-  defaultGeneralLedger = {displayText: 'Select a General ledger'};
+  defaultJournalType = {jrT_Id: 'Select a Journal Type'};
+  defaultLegalEntity = {nomComplet: 'Select a Legal Entity'};
+  defaultGeneralLedger = {displayText: 'Select a General Ledger'};
 
   isSaved = false;
 
   nextStep() {
    // if (this.journalForm.valid) {
     this.next.emit(this.journalForm);
-    // this.legalEntityId.emit(this.journalForm.get('JRL_LegalEntity_Id')?.value); // 🔹 Émet la valeur correctement
+    // this.legalEntityId.emit(this.journalForm.get('jrL_LegalEntity_Id')?.value); // 🔹 Émet la valeur correctement
     //}
   }
 
@@ -72,37 +72,32 @@ export class FormJRLInfoComponent implements OnInit {
   ngOnInit(): void {
 
     this.journalForm = this.fb.group({
-      JRL_Id: [''],
-      JRL_Abbreviation: ['', Validators.required],
-      JRL_Description: ['', [Validators.maxLength(30)]],
-      JRL_CurrencyCode: ['', Validators.required],
-      JRL_JournalType_Id: ['', Validators.required],
-      JRL_GeneralLedger_Id: ['', Validators.required],
-      JRL_BankAccount_Id: [{value: '', disabled: true}, Validators.required],
-      JRL_LegalEntity_Id: ['', Validators.required],
-      JRL_ExactAdministration: ['', Validators.required],
-      JRL_ExactJournal: ['', Validators.required],
-      JRL_Inactive: [false]
+      jrL_Id: [''],
+      jrL_Abbreviation: ['', Validators.required],
+      jrL_Description: ['', [Validators.maxLength(30)]],
+      jrL_CurrencyCode: ['', Validators.required],
+      jrL_JournalType_Id: ['', Validators.required],
+      jrL_GeneralLedger_Id: ['', Validators.required],
+      jrL_BankAccount_Id: [{value: '', disabled: true}, Validators.required],
+      jrL_LegalEntity_Id: ['', Validators.required],
+      jrL_ExactAdministration: ['', Validators.required],
+      jrL_ExactJournal:  ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      jrL_Inactive: [false]
     });
 
-    // 🔹 Écoute du changement de LegalEntity pour charger les General Ledgers
-    this.journalForm.get('JRL_LegalEntity_Id')?.valueChanges.subscribe(legalEntityId => {
-      const journalType = this.journalForm.get('JRL_JournalType_Id')?.value; // Récupère le type de journal
+    this.journalForm.get('jrL_LegalEntity_Id')?.valueChanges.subscribe(legalEntityId => {
+      const journalType = this.journalForm.get('jrL_JournalType_Id')?.value;
 
       if (legalEntityId) {
-      //  this.loadGeneralLedgers(legalEntityId);
 
-        // 🔹 Charge l'IBAN seulement si le type de journal est "Bank"
         if (journalType === 'Bank') {
           this.loadBankAccount(legalEntityId);
         }
       } else {
-        //this.generalLedgers = []; // Réinitialisation si aucun Legal Entity sélectionné
-        this.journalForm.patchValue({ JRL_BankAccount_Id: '' }); // Réinitialise
+        this.journalForm.patchValue({ jrL_BankAccount_Id: '' }); // Réinitialise
       }
     });
     this.loadGeneralLedgers();
-    // Charger toutes les devises
     this.currencyServiceService.getActiveCurrencyIds().subscribe({
       next: (data) => {
         this.currencies = data;
@@ -113,16 +108,15 @@ export class FormJRLInfoComponent implements OnInit {
     });
 
 // 🔹 Écoute du changement de type de journal
-    this.journalForm.get('JRL_LegalEntity_Id')?.valueChanges.subscribe(selectedId => {
+    this.journalForm.get('jrL_LegalEntity_Id')?.valueChanges.subscribe(selectedId => {
       const selectedEntity = this.legalEntities.find(entity => entity.lE_Id === selectedId);
       if (selectedEntity) {
         this.legalEntityTwoService.getCurrencyCode(selectedEntity.leT_ShortName, selectedEntity.leT_LongName)
           .subscribe({
             next: (response) => {
-              // Trouver la devise correspondante pour définir la valeur par défaut
               const defaultCurrency = this.currencies.find(c => c.name === response.currencyCode);
               if (defaultCurrency) {
-                this.journalForm.patchValue({ JRL_CurrencyCode: defaultCurrency.CRR_Id });
+                this.journalForm.patchValue({ jrL_CurrencyCode: defaultCurrency.CRR_Id });
               }
             },
             error: (error) => {
@@ -135,29 +129,24 @@ export class FormJRLInfoComponent implements OnInit {
     this.loadJournalTypes();
 
     // Mise à jour automatique du code devise lors du changement de Legal Entity
-    this.journalForm.get('JRL_LegalEntity_Id')?.valueChanges.subscribe(selectedId => {
+    this.journalForm.get('jrL_LegalEntity_Id')?.valueChanges.subscribe(selectedId => {
       const selectedEntity = this.legalEntities.find(entity => entity.lE_Id === selectedId);
       console.log('Entité sélectionnée:', selectedEntity);  // Vérifiez la valeur retournée
       if (selectedEntity) {
-        // Appel API pour récupérer JRL_ExactAdministration
+        // Appel API pour récupérer jrL_ExactAdministration
         this.legalEntityTwoService.getExactAdministrationById(selectedId).subscribe({
           next: (response) => {
-            console.log("Réponse reçue:", response);  // Affiche la structure de l'objet
+            console.log("Réponse reçue:", response);
             if (response && response.lE_ExactAdministration) {
-              // Activer temporairement le champ
               this.journalForm.get('lE_ExactAdministration')?.enable();
+              this.journalForm.patchValue({jrL_ExactAdministration: response.lE_ExactAdministration});
 
-              // Mettre à jour la valeur de JRL_ExactAdministration
-              this.journalForm.patchValue({JRL_ExactAdministration: response.lE_ExactAdministration});
-
-              // Désactiver le champ après mise à jour si nécessaire
-              // this.journalForm.get('lE_ExactAdministration')?.disable();
             } else {
               console.error('La réponse ne contient pas la propriété LE_ExactAdministration');
             }
           },
           error: (error: HttpErrorResponse) => {
-            console.error('Erreur lors de la récupération de JRL_ExactAdministration:', error);
+            console.error('Erreur lors de la récupération de jrL_ExactAdministration:', error);
           }
         });
 
@@ -165,18 +154,17 @@ export class FormJRLInfoComponent implements OnInit {
         this.legalEntityTwoService.getCurrencyCode(selectedEntity.leT_ShortName, selectedEntity.leT_LongName)
           .subscribe({
             next: (response) => {
-              console.log("Données reçues :", response); // Vérifie la structure des données
-              this.journalForm.patchValue({JRL_CurrencyCode: response.currencyCode}); // Utilisation correcte de currencyCode
+              console.log("Données reçues :", response);
+              this.journalForm.patchValue({jrL_CurrencyCode: response.currencyCode});
             },
             error: (error: HttpErrorResponse) => {
               console.error('Erreur lors de la récupération du code devise', error);
-              // Ici, tu pourrais ajouter une gestion des erreurs plus visible pour l'utilisateur
             }
           });
       }
     });
     if (this.isSaved) {
-      this.journalForm.get('JRL_BankAccount_Id')?.disable();
+      this.journalForm.get('jrL_BankAccount_Id')?.disable();
     }
 
   }
@@ -222,18 +210,15 @@ export class FormJRLInfoComponent implements OnInit {
   private loadBankAccount(legalEntityId: string): void {
     this.bankAccountService.getBankAccountByLegalEntity(legalEntityId).subscribe({
       next: (data) => {
-        if (data && data.baC_Id) {
-          this.journalForm.patchValue({JRL_BankAccount_Id: data.baC_Id}); // Affiche l'IBAN
-          this.journalForm.get('JRL_BankAccount_Id')?.enable(); // Active le champ
-        } else {
-          this.journalForm.patchValue({JRL_BankAccount_Id: ''}); // Réinitialise si pas d'IBAN
-          this.journalForm.get('JRL_BankAccount_Id')?.disable();
+        if (data && data.baC_Id && !this.isSaved) { // ✅ Ne réactive pas après sauvegarde
+          this.journalForm.patchValue({ jrL_BankAccount_Id: data.baC_Id });
+          this.journalForm.get('jrL_BankAccount_Id')?.enable();
         }
       },
       error: (error: HttpErrorResponse) => {
         console.error('Erreur lors du chargement de l’IBAN', error);
-        this.journalForm.patchValue({JRL_BankAccount_Id: ''});
-        this.journalForm.get('JRL_BankAccount_Id')?.disable();
+        this.journalForm.patchValue({ jrL_BankAccount_Id: '' });
+        this.journalForm.get('jrL_BankAccount_Id')?.disable();
       }
     });
   }
@@ -257,38 +242,27 @@ export class FormJRLInfoComponent implements OnInit {
       this.isSubmitting = true;
 
       let journalData = this.journalForm.value as Journal;
-      journalData.JRL_Id = `${journalData.JRL_ExactAdministration}-${journalData.JRL_ExactJournal}`;
+      journalData.jrL_Id = `${journalData.jrL_ExactAdministration}-${journalData.jrL_ExactJournal}`;
 
-      // Récupérer le BAC_Id à partir de l'IBAN
-      this.bankAccountService.getBankAccountByLegalEntity(journalData.JRL_LegalEntity_Id ?? '').subscribe({
-        next: (data) => {
-          if (data && data.baC_Id) {
-            journalData.JRL_BankAccount_Id = data.baC_Id; // Remplace l’IBAN par l’ID
-          }
+      this.journalService.createJournal(journalData).subscribe({
+        next: () => {
+          alert('Journal created successfully !');
+          this.journalCreated.emit(journalData);
+          this.isSubmitting = false;
+          this.isSaved = true;
+          this.journalForm.disable();
+          this.journalForm.get('jrL_LegalEntity_Id')?.enable();
 
-          this.journalService.createJournal(journalData).subscribe({
-            next: () => {
-              alert('Journal créé avec succès !');
-              this.journalCreated.emit(journalData);
-              this.isSubmitting = false;
-               this.isSaved = true;  // ✅ Activation du bouton Next
-              this.journalForm.disable();
-              this.journalForm.get('JRL_BankAccount_Id')?.disable(); // ✅ Désactive le champ après sauvegarde
-              this.journalForm.get('JRL_LegalEntity_Id')?.enable();
-            },
-            error: (error: HttpErrorResponse) => {
-              this.errorMessage = error.error?.title || 'Une erreur est survenue.';
-              this.isSubmitting = false;
-            }
-          });
         },
         error: (error: HttpErrorResponse) => {
-          console.error('Erreur lors de la récupération du BAC_Id', error);
+          this.errorMessage = error.error?.title || 'Une erreur est survenue.';
           this.isSubmitting = false;
         }
       });
+
     } else {
       this.errorMessage = 'Veuillez remplir tous les champs obligatoires.';
     }
   }
+
 }
