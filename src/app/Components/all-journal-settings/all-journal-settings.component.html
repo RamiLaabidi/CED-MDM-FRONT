@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="general-info">
+    <div class="header">
+      <h2>Journal Settings</h2>
+    </div>
+
+    <!-- Champ de recherche -->
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search for Journal Setting..."
+        [(ngModel)]="searchTerm"
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <div class="tab">
+    <kendo-grid
+      [data]="filteredJournals"
+      [height]="473"
+      [pageSize]="10"
+      [sortable]="true"
+      [pageable]="true"
+      [selectable]="true"
+      class="shadow-sm rounded modern-grid"
+    >
+      <kendo-grid-column field="jlS_Id" title="Journal Setting ID" [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_Journal_Id" title="Journal ID" [width]="120" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_JournalSettingType_Id" title="Journal Setting Type" [width]="200" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_GeneralLedger_Id" title="GeneralLedger" [width]="120" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_EntrySystem" title="EntrySystem" [width]="50" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_CreatedDate" title="Created Date" [width]="120" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_LastModifiedDate" title="LastModifiedDate" [width]="130" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_EffectiveDate" title="Effective Date" [width]="130" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_TerminationDate" title="Termination Date" [width]="130" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+      <kendo-grid-column field="jlS_ZeroRateForeignTaxCode" title="ZRFTaxC" [width]="80" [headerStyle]="{'font-weight': 'bold'}"></kendo-grid-column>
+
+
+      <kendo-grid-column title="Edit General Ledger" [width]="70" [headerStyle]="{'font-weight': 'bold'}">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <button class="k-icon k-i-edit" style="color: black;" (click)="navigateToEdit(dataItem.jlS_Id)">
+            🖊️
+          </button>
+
+        </ng-template>
+      </kendo-grid-column>
+
+    </kendo-grid>
+  </div>
+</div>

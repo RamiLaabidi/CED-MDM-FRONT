@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="general-info" *ngIf="journalSettingInfo">
+    <h3>{{ isSaved ? 'Journal Setting Information' : 'Edit Journal Setting' }}</h3>
+    <div class="info-container">
+      <div class="info-item">
+        <span class="info-label">Journal ID : </span><br>
+        <strong>{{journalSettingInfo?.jlS_Journal_Id}}</strong>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Created Date : </span><br>
+        <strong>{{journalSettingInfo?.jlS_CreatedDate | date:'dd/MM/yyyy'}}</strong>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Last Modified Date :</span><br>
+        <strong>{{journalSettingInfo?.jlS_LastModifiedDate | date:'dd/MM/yyyy'}}</strong>
+      </div>
+    </div>
+  </div>
+
+<form [formGroup]="journalSettingForm" (ngSubmit)="submitForm()" class="k-form">
+  <div class="form-container">
+
+    <!-- Legal Entity -->
+    <div class="form-group">
+      <label class="label-required">Legal Entity</label>
+      <kendo-textbox formControlName="jlS_LegalEntity_Id" placeholder="Enter Entry System Code"></kendo-textbox>
+    </div>
+
+    <!-- Entry System -->
+    <div class="form-group">
+      <label class="label-required">Entry System</label>
+      <kendo-textbox formControlName="jlS_EntrySystem" placeholder="Enter Entry System Code"></kendo-textbox>
+    </div>
+
+    <!-- Journal Setting Type -->
+    <div class="form-group">
+      <label class="label-required">Journal Setting Type</label>
+      <kendo-dropdownlist
+        [data]="journalSettingTypes"
+        [textField]="'description'"
+        [valueField]="'id'"
+        [valuePrimitive]="true"
+        formControlName="jlS_JournalSettingType_Id"
+        [defaultItem]="defaultJournalSettingType">
+      </kendo-dropdownlist>
+    </div>
+    <!-- General Ledger -->
+    <div class="form-group">
+      <label class="label-required">General Ledger</label>
+      <kendo-dropdownlist
+        [data]="generalLedgers"
+        [textField]="'displayText'"
+        [valueField]="'gL_Id'"
+        [valuePrimitive]="true"
+        formControlName="jlS_GeneralLedger_Id"
+        [defaultItem]="defaultGeneralLedger">
+      </kendo-dropdownlist>
+    </div>
+
+    <!-- Effective Date -->
+    <div class="form-group">
+      <label class="label-required">Effective Date</label>
+      <kendo-datepicker formControlName="jlS_EffectiveDate" [readonly]="true"></kendo-datepicker>
+    </div>
+
+    <!-- Termination Date -->
+    <div class="form-group">
+      <label class="label-required">Termination Date</label>
+      <kendo-datepicker formControlName="jlS_TerminationDate"></kendo-datepicker>
+    </div>
+
+    <!-- Zero Rate Foreign Tax Code -->
+    <div class="form-group">
+      <label>Zero Rate Foreign Tax Code</label>
+      <kendo-textbox formControlName="jlS_ZeroRateForeignTaxCode" placeholder="Enter Tax Code"></kendo-textbox>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="submit-container">
+    <button kendoButton type="button" (click)="enableEditing()" *ngIf="!isEditing">Edit</button>
+    <button kendoButton type="submit" [disabled]="!journalSettingForm.valid" [primary]="true" *ngIf="isEditing">Save</button>
+  </div>
+</form>
+</div>

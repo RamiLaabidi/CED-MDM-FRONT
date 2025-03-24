@@ -1,0 +1,95 @@
+/* Général */
+body {
+  background-color: #f7f7f7;
+  font-family:  Arial, sans-serif;
+  margin: 0;
+}
+/*
+.container {
+  max-width: 1400px;
+  margin: 100px auto;
+  background: #ffffff;
+  min-height: 600px;
+
+}*/
+.container {
+  max-width: 1400px;
+  padding: 30px;
+  margin-top: 30px;
+  background: #ffffff;
+
+}
+
+.general-info h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+button[kendoButton] {
+  background-color: #fd8a8a;
+  color: #fff;
+  padding: 8px 50px;
+  border-radius: 1px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+  max-width: 120px;
+  margin: 0 10px;
+}
+
+button[kendoButton]:disabled {
+  background-color: #fd8a8a;
+  cursor: not-allowed;
+}
+
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+}
+
+
+/* Alignement Journals à gauche et Add à droite */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+
+
+
+.tab {
+  overflow: hidden; /* Empêcher le débordement */
+}
+
+/* Ajuster la largeur et la hauteur du kendo-grid */
+kendo-grid {
+  width: 100%; /* Largeur du tableau */
+  height: 700px; /* Hauteur du tableau */
+}
+.k-icon {
+  font-size: 16px; /* Modifier la taille */
+}
+.search-bar {
+  margin: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  width: 300px;
+}

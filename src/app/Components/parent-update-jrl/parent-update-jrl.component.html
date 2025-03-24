@@ -1,0 +1,18 @@
+<div class="container">
+  <app-general-information [journalInfo]="journalForm.value"></app-general-information>
+
+  <div *ngIf="stepIndex === 1">
+    <app-update-journal (journalCreated)="updateJournalData($event)"></app-update-journal>
+  </div>
+
+<!--  <div *ngIf="stepIndex === 2">-->
+<!--    <app-journal-setting-update-->
+<!--      [journalData]="journalForm.value"-->
+<!--      [jrlId]="journalForm.get('jrlId')?.value"-->
+<!--      [legalEntityId]="journalForm.value.jrL_LegalEntity_Id"-->
+<!--    >-->
+<!--    </app-journal-setting-update>-->
+<!--  </div>-->
+
+
+</div>
